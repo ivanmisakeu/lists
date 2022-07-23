@@ -118,6 +118,20 @@ class FindMissingTranslations {
                 self::$system_translations[] = $tmp[ 0 ];
             }
         }
+        
+        foreach ( explode( "Lang::l( '", $file_content ) as $key => $tmp ) {
+
+            if ( $key == 0 ) {
+                continue;
+            }
+
+            $tmp = explode( "' )", $tmp );
+
+            if ( !in_array( $tmp[ 0 ], self::$system_translations ) ) {
+
+                self::$system_translations[] = $tmp[ 0 ];
+            }
+        }
 
         foreach ( explode( 'Lang::l("', $file_content ) as $key => $tmp ) {
 

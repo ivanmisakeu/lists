@@ -8,6 +8,10 @@ define( 'LOG_DIR' , APP_DIR . '/logs' );
 
 class Log {
         
+    const TYPE_DB_MIGRATION = 'db_migration';
+    const TYPE_MISSING_TRANSLATIONS = 'missing-translations';
+    const TYPES_ALL = [ self::TYPE_DB_MIGRATION , self::TYPE_MISSING_TRANSLATIONS ];
+    
     /**
      * Store message into log file
      * 

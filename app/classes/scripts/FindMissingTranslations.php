@@ -7,7 +7,6 @@ if ( !defined( 'APP_VERSION' ) ) {
 
 class FindMissingTranslations {
 
-    const LOG_NAME = 'missing-translations';
     /** @var array */
     private static $system_translations = array();
     /** @var array */
@@ -19,7 +18,7 @@ class FindMissingTranslations {
     public static function do() {
 
         if( APP_DEBUG ){
-            Log::flush( self::LOG_NAME );
+            Log::flush( Log::TYPE_MISSING_TRANSLATIONS );
         }
         
         self::log( 'Script started' );
@@ -49,7 +48,7 @@ class FindMissingTranslations {
     private static function log( string $message ) {
 
         echo $message . '<br />';
-        Log::store( self::LOG_NAME, $message );
+        Log::store( Log::TYPE_MISSING_TRANSLATIONS, $message );
     }
 
     /**

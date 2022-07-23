@@ -9,7 +9,6 @@ if( !defined('APP_VERSION') ){
 class DbUpdate {
 
     const TABLE_NAME = 'migration';
-    const LOG_NAME = 'db_migration';
     const ALLOWED_FILE_EXTENSIONS = [ 'sql' ];
 
     /**
@@ -18,7 +17,7 @@ class DbUpdate {
     public static function do() {
 
         if( APP_DEBUG ){
-            Log::flush( self::LOG_NAME );
+            Log::flush( Log::TYPE_DB_MIGRATION );
         }
         
         self::log( 'Migration script started' );
@@ -51,7 +50,7 @@ class DbUpdate {
     private static function log( string $message ) {
 
         echo $message . '<br />';
-        Log::store( self::LOG_NAME, $message );
+        Log::store( Log::TYPE_DB_MIGRATION, $message );
     }
 
     /**

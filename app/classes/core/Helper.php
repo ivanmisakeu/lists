@@ -221,6 +221,17 @@ class Helper {
     }
     
     /**
+     * Add special SQL quotes to name of table / column
+     * 
+     * @param string $string
+     * @return string
+     */
+    public static function str_add_sql_quotes( string $string ){
+        
+        return '`' . $string . '`';
+    }
+    
+    /**
      * Removes mobile automatic first letter uppercase
      * 
      * @param string $string

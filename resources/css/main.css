@@ -10,6 +10,20 @@ body{
     padding: 0px 15px;
 }
 
+.logo{
+    display: inline-block;
+    margin-right: 0px;
+    width: 40px;
+    height: 40px;
+    background-image: url('../img/favicon/apple-touch-icon.png');
+    background-repeat: no-repeat;
+    background-position: 0px 0px;
+    background-size: 100% auto;
+    position: relative;
+    top: 7px;
+    border-radius: 5px;
+}
+
 input.error,
 select.error,
 textarea.error{

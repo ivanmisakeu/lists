@@ -111,8 +111,10 @@ class Items extends Core {
                 Helper::redirect( APP_URL . '/' );
             } else {
 
-                App::$DB->query( 'UPDATE ' . self::TABLE_NAME . ' SET deleted = ' . self::ITEM_DELETED . ' WHERE id = ?', (int) App::$ROUTES[2] );
-                //App::$DB->query('DELETE FROM ' . self::TABLE_NAME . ' WHERE id = ?', (int) App::$ROUTES[2] );
+                App::$DB->query('UPDATE ' . self::TABLE_NAME . ' SET', [
+                    'deleted' => self::ITEM_DELETED,
+                    'deleted_date' => Core::now()
+                ], 'WHERE id = ?', (int) App::$ROUTES[2] );
 
                 Helper::flash_set( Lang::l( 'Item has been removed' ) );
                 Helper::redirect( APP_URL . '/' . Tenant::getNameById( $item['id_tenant'] ) );

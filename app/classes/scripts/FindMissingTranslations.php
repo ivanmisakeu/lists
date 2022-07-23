@@ -72,7 +72,7 @@ class FindMissingTranslations {
 
     private static function searchForTranslationSources() {
 
-        $ifnore_paths_while_scanning = [
+        $ignore_paths_while_scanning = [
             WWW_DIR . '/resources',
             APP_DIR . '/sql',
             APP_DIR . '/logs',
@@ -85,7 +85,7 @@ class FindMissingTranslations {
                         [ 'php' ],
                         true,
                         [ '.', '..', '.DS_Store', '__a.php' ],
-                        array_merge( Helper::SCAN_DIR_EXCLUDED_PATHS, $ifnore_paths_while_scanning )
+                        array_merge( Helper::SCAN_DIR_EXCLUDED_PATHS, $ignore_paths_while_scanning )
         );
 
         self::log( 'Found ' . count( $php_files ) . ' source files to search in..' );
@@ -140,6 +140,20 @@ class FindMissingTranslations {
             }
 
             $tmp = explode( "')", $tmp );
+
+            if ( !in_array( $tmp[ 0 ], self::$system_translations ) ) {
+
+                self::$system_translations[] = $tmp[ 0 ];
+            }
+        }
+        
+        foreach ( explode( "_l( '", $file_content ) as $key => $tmp ) {
+
+            if ( $key == 0 ) {
+                continue;
+            }
+
+            $tmp = explode( "' )", $tmp );
 
             if ( !in_array( $tmp[ 0 ], self::$system_translations ) ) {
 

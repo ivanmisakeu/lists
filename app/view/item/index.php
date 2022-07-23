@@ -1,6 +1,6 @@
 
 <h1>
-    <i class="fa fa-list-ul" aria-hidden="true"></i> 
+    <div class="logo"></div>
     <?= $tenant['title'] ? $tenant['title'] : _l( 'Shopping list' ) ?>
 </h1>
 

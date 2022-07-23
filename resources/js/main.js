@@ -3,8 +3,15 @@ var _app = {
 
     lang : {
     
+        /* List of translations, this will be overwriten in HTML */
         translations : {},
         
+        /**
+         * Translate text in users language
+         * 
+         * @param {String} text
+         * @returns {String}
+         */
         l : function( text ){
             
             if( typeof( _app.lang.translations[text] ) !== 'undefined' ){
@@ -20,8 +27,18 @@ var _app = {
     
     flashes: {
 
+        /* Main flash element handler */
         el: '#flash-message',
+        
+        /* Time to show flash message */
         show_timeout: 2000,
+        
+        /**
+         * Flash message init function
+         * If message exists, begin countdown process..
+         * 
+         * @returns {Void}
+         */
         init: function () {
 
             if ($(_app.flashes.el).length) {
@@ -31,10 +48,25 @@ var _app = {
                 }, _app.flashes.show_timeout);
             }
         },
+        
+        /**
+         * Hide flash message, what else have you expected?
+         * 
+         * @returns {Void}
+         */
         hide: function () {
 
             $(_app.flashes.el).fadeOut(1000);
         },
+        
+        /**
+         * Show new flash message
+         * In other message exists, it will be removed
+         * 
+         * @param {String} text
+         * @param {String} type
+         * @returns {Void}
+         */
         show: function (text, type) {
 
             if ($(_app.flashes.el).length) {
@@ -61,6 +93,11 @@ var _app = {
     
     captcha : {
         
+        /**
+         * Recount captcha fields in all forms
+         * 
+         * @returns {Void}
+         */
         init : function() {
             
             $('form input[name^=__cc]').each( function() { 
@@ -73,10 +110,17 @@ var _app = {
     
     form : {
         
+        /**
+         * Forms init function
+         * 
+         * @returns {Void}
+         */
         init: function() {
             
+            /* Create UI handler for errors */
             _app.form.error.init();
             
+            /* Check if all required fields are filled up */
             $(document).on('submit','form', function( e ) {
                 
                 var required_input_size = $('.required', $(this) ).length;
@@ -119,8 +163,15 @@ var _app = {
             });
         },
         
+        /* Form errors easy peasy UI */
         error : {
             
+            /**
+             * Form erros init function
+             * After error field focus remove error css..
+             * 
+             * @returns {Void}
+             */
             init : function(){
                 
                 $(document).on('change focus','.error',function(){
@@ -128,10 +179,24 @@ var _app = {
                     _app.form.error.hide( $(this) );
                 });
             },
+            
+            /**
+             * Show error on given input
+             * 
+             * @param {Object} el
+             * @returns {Void}
+             */
             show : function( el ){
                 
                 el.addClass('error');
             },
+            
+            /**
+             * Removes error on given input
+             * 
+             * @param {Object} el
+             * @returns {Void}
+             */
             hide : function ( el ){
                 
                 el.removeClass('error');
@@ -142,9 +207,14 @@ var _app = {
     
     modals : {
         
+        /**
+         * Modals init function
+         * 
+         * @returns {Void}
+         */
         init: function(){
           
-            // close modal after Esc key
+            /* close modal after Esc key */
             $(document).keyup(function(e) {
                 
                 if (e.key === "Escape") { 
@@ -160,6 +230,13 @@ var _app = {
 
         },
             
+        /**
+         * Show modal to remove item from tenant list
+         * 
+         * @param {Int} id
+         * @param {String} name
+         * @returns {Boolean}
+         */
         removeItem : function( id , name ){
 
             var el = $('#removeItemModal');
@@ -170,6 +247,13 @@ var _app = {
             return false;
         },
         
+        /**
+         * Show modal with tenant configs
+         * 
+         * @param {Int} id
+         * @param {String} name
+         * @returns {Boolean}
+         */
         configItemList : function( id , name ){
             
             var el = $('#configTenantModal');
@@ -182,6 +266,11 @@ var _app = {
 
     },
         
+    /**
+     * App init function - agregates all other init funcitons
+     * 
+     * @returns {Void}
+     */
     init: function () {
 
         _app.flashes.init();
@@ -190,9 +279,14 @@ var _app = {
         _app.modals.init();
     }
 
-}
+};
+
 $(function () {
 
+    /* 
+     * Here we go..
+     * Show your magic powerful wizard!
+     */
     _app.init();
 
 })

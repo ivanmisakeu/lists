@@ -183,9 +183,21 @@ class Helper {
      */
     public static function str_explode_commas( string $string ){
         
+        // check if there are numbers with comma as decimal point
+        preg_match_all('/\\d,\\d/usm', $string , $matches , PREG_OFFSET_CAPTURE );
+        if( isset( $matches[0]) && count($matches[0]) ){
+            
+            foreach($matches[0] as $match){
+                
+                $string = str_replace( $match[0] , $match[0][0] . '##DECIMAL_POINT##' . $match[0][2], $string );
+            }
+        }
+        $string = preg_replace('/\\d,\\d/usm', '\\d##DECIMAL_SYMBOL##\\d', $string);;
+   
+        // explode input into rows
         $rows = explode(',',$string);
         foreach( $rows as &$row ){
-            $row = trim($row);
+            $row = trim( str_replace('##DECIMAL_POINT##',',',$row));
         }
         
         return $rows;

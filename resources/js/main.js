@@ -141,6 +141,24 @@ var _app = {
     },
     
     modals : {
+        
+        init: function(){
+          
+            // close modal after Esc key
+            $(document).keyup(function(e) {
+                
+                if (e.key === "Escape") { 
+                    
+                    $('.modal').each(function(){
+                        
+                        if( $(this).css('display') == 'block' ){
+                            $(this).hide();
+                        }
+                    });
+                }
+            });
+
+        },
             
         removeItem : function( id , name ){
 
@@ -169,6 +187,7 @@ var _app = {
         _app.flashes.init();
         _app.captcha.init();
         _app.form.init();
+        _app.modals.init();
     }
 
 }

@@ -18,6 +18,12 @@
 
             <?php endif; ?>
 
+            <hr />
+            
+            <div class="copyright">
+                &copy;<?= date('Y') ?> Ivan Mišák | <?= _l('Version') . ' ' . APP_VERSION ?> 
+            </div>
+            
         </div>
 
         <?= Template::include( 'footer' ) ?>

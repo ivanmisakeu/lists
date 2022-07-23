@@ -93,6 +93,12 @@ h1 .fa-list-ul{
     border-radius: 0px !important;
 }
 
+.copyright{
+    font-size: 11px;
+    color: #999;
+    margin-top: -10px;
+}
+
 .items-list-config-pointer{
     float: right;
     color: #999;

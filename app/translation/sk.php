@@ -24,4 +24,5 @@ Lang::$translation_array = [
 	'Tenant has been sucessfully created' => 'Zoznam bol vytvorený',
 	'Settings has been saved' => 'Nastavenia boli uložené',
 	'Whoops, something went wrong!' => 'Hopsa! Niečo sa zas nepodarilo!',
+        'Version' => 'Verzia',
 ];

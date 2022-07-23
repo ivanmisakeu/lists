@@ -242,7 +242,7 @@ class DbBackup {
             
         };
         
-        self::log( 'Dump succesfully created' );
+        self::log( 'Dump successfully created' );
         
     }
       

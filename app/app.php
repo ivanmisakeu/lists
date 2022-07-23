@@ -29,7 +29,7 @@ class App {
         $this->router_init();
         
         // check db update script
-        if( floatval( Settings::get('APP_VERSION') ) < floatval(APP_VERSION) ){
+        if( defined('APP_VERSION') && floatval( Settings::get('APP_VERSION') ) < floatval(APP_VERSION) ){
             Helper::redirect( APP_URL . '/script/db-update?forced' );
         }
 

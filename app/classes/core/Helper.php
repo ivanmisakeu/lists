@@ -31,6 +31,11 @@ class Helper {
 
     /* ------- ** URL ADDRESS FUNCTIONS ** ------- */
 
+    /**
+     * Redirects user to given URL address
+     * 
+     * @param string $url
+     */
     public static function redirect( string $url ) {
 
         // close session .. because: fuck off!
@@ -39,6 +44,15 @@ class Helper {
 
         header( 'Location: ' . $url );
         die;
+    }
+    
+    /**
+     * Redirects user home with error message
+     */
+    public static function redirect_error_home(){
+        
+        Helper::flash_set( Lang::l( 'Whoops, something went wrong!' ), Helper::FLASH_DANGER );
+        Helper::redirect( APP_URL . '/' );
     }
 
     /* ------- ** FLASH MESSAGES ** ------- */

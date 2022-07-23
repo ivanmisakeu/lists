@@ -8,7 +8,7 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
                 <h4 class="modal-title">
-                    <strong><?= _l( 'Realy delete item?' ) ?></strong>
+                    <i class="fa fa-trash-o" aria-hidden="true"></i> <strong><?= _l( 'Realy delete item?' ) ?></strong>
                 </h4>
                 <br />
                 <p>-- item name --</p>

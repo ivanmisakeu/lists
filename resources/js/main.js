@@ -145,9 +145,21 @@ var _app = {
         removeItem : function( id , name ){
 
             var el = $('#removeItemModal');
-            $('.btn-primary' , el).attr('href',el.attr('data-url') + id);
+            $('.btn-primary' , el).attr( 'href', el.attr('data-url') + id );
             $('.modal-header p' , el).text( '"' + name + '"' );
             el.show();
+            
+            return false;
+        },
+        
+        configItemList : function( id , name ){
+            
+            var el = $('#configTenantModal');
+            $('input[name=tenant_id]', el).val( id );
+            $('input[name=tenant_name]' , el).val( name );
+            el.show();
+            
+            return false;
         }
 
     },

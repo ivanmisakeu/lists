@@ -1,4 +1,8 @@
 
+<a href="#" class="items-list-config-pointer" onClick="return _app.modals.configItemList( <?= $tenant['id'] ?> , '<?= $tenant['title'] ? $tenant['title'] : _l( 'Shopping list' ) ?>');">
+    <i class="fa fa-cogs" aria-hidden="true"></i>
+</a>
+
 <h1>
     <div class="logo"></div>
     <?= $tenant['title'] ? $tenant['title'] : _l( 'Shopping list' ) ?>
@@ -26,7 +30,7 @@
     <?php foreach ( $items as $item ): ?>
             <tr>
                 <td>
-                    <div class="link" onClick="_app.modals.removeItem(<?= $item->id ?>, '<?= $item->name ?>');">
+                    <div class="link" onClick="return _app.modals.removeItem(<?= $item->id ?>, '<?= $item->name ?>');">
                         <i class="fa fa-trash-o pull-right" aria-hidden="true"></i>
                         <?= $item->name ?>
                     </div>
@@ -36,6 +40,7 @@
     </table>
 
     <?php Template::render('item/modals/delete'); ?>
+    <?php Template::render('item/modals/config'); ?>
 
 <?php else: ?>
 

@@ -20,6 +20,17 @@ class Tenant extends Core {
     /* ------- ** DATABASE FUNCTIONS ** ------- */
 
     /**
+     * Returns one row by ID
+     * 
+     * @param int $id
+     * @return array
+     */
+    public static function get( int $id ){
+        
+        return parent::_get( $id , self::TABLE_NAME );
+    }
+    
+    /**
      * Returns tenant by his name
      * 
      * @param string $name
@@ -107,6 +118,40 @@ class Tenant extends Core {
             Helper::redirect( APP_URL . '/' . $tenant_name );
             
         }
+        
+        Helper::redirect_error_home();
+    }
+    
+    public static function configList(){
+        
+        Helper::captcha_verify();
+        
+        // check tenant at first
+        if( isset( $_POST['tenant_id'] ) ){
+            
+            $tenant = self::get( (int) $_POST['tenant_id'] );
+            if( !$tenant ){
+            
+                Helper::flash_set( Lang::l( 'Tenant does not exists' ), Helper::FLASH_DANGER );
+                Helper::redirect( APP_URL . '/' );
+            }
+        }
+       
+        // here we go..
+        if (isset( $_POST['tenant_name'] ) && strlen( $_POST['tenant_name'] )) {
+            
+            $title = Helper::str_remove_html( $_POST['tenant_name'] );
+            $title = trim( $title );
+  
+            App::$DB->query('UPDATE ' . self::TABLE_NAME . ' SET', [
+                'title' => $title,
+            ], 'WHERE id = ?', (int) $tenant['id'] );
+            
+            Helper::flash_set( Lang::l( 'Settings has been saved' ) );
+            Helper::redirect( APP_URL . '/' . $tenant['name'] );
+        }
+        
+        Helper::redirect_error_home();
     }
 
 }

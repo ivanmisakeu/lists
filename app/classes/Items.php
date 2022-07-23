@@ -15,6 +15,13 @@ class Items extends Core {
     public static function actionIndex() {
 
         $tenant = Tenant::getByName( App::$TEENANT );
+        
+        if( !$tenant ){
+            
+            Helper::flash_set( Lang::l( 'Tenant does not exists' ), Helper::FLASH_DANGER );
+            Helper::redirect( APP_URL . '/' );
+        }
+        
         Template::assign( 'tenant', $tenant );
         Template::assign( 'items', Items::getAllByTenantId( $tenant['id'] ) );
 
@@ -27,6 +34,17 @@ class Items extends Core {
     
     /* ------- ** DATABASE FUNCTIONS ** ------- */
         
+    /**
+     * Returns one row by ID
+     * 
+     * @param int $id
+     * @return array
+     */
+    public static function get( int $id ){
+        
+        return parent::_get( $id , self::TABLE_NAME );
+    }
+    
     /**
      * Get all items (not marked as deleted=1) for specified tenant
      * 
@@ -93,6 +111,8 @@ class Items extends Core {
             Helper::flash_set( Lang::l( 'Item has been added' ) );
             Helper::redirect( APP_URL . '/' . Tenant::getNameById( $_POST['id_tenant'] ) );
         }
+        
+        Helper::redirect_error_home();
     }
 
     /**
@@ -120,6 +140,8 @@ class Items extends Core {
                 Helper::redirect( APP_URL . '/' . Tenant::getNameById( $item['id_tenant'] ) );
             }
         }
+        
+        Helper::redirect_error_home();
     }
 
 }

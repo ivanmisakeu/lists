@@ -52,7 +52,7 @@ class Helper {
     public static function redirect_error_home(){
         
         Helper::flash_set( Lang::l( 'Whoops, something went wrong!' ), Helper::FLASH_DANGER );
-        Helper::redirect( APP_URL . '/' );
+        Helper::redirect( (defined('ADMIN_URL') ? ADMIN_URL : APP_URL) . '/' );
     }
 
     /* ------- ** FLASH MESSAGES ** ------- */
@@ -221,6 +221,17 @@ class Helper {
     }
     
     /**
+     * Returns nickname from email without @ part
+     * 
+     * @param string $email
+     * @return string
+     */
+    public static function str_nick_from_email( string $email ){
+        
+        return explode('@', $email)[0];
+    }
+    
+    /**
      * Add special SQL quotes to name of table / column
      * 
      * @param string $string
@@ -244,6 +255,17 @@ class Helper {
         }
         
         return $string;
+    }
+    
+    /**
+     * Hash user password
+     * 
+     * @param string $password
+     * @return string
+     */
+    public static function str_hash_password( string $password ){
+        
+        return md5( APP_SALT . $password );
     }
 
     /* ------- ** FILE WORK FUNCTIONS ** ------- */

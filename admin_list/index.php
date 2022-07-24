@@ -3,7 +3,10 @@
     // app definition and init..
     define( 'WWW_DIR', __DIR__ . '/..' );
     define( 'APP_DIR', WWW_DIR . '/app' );
-    define( 'ADMIN_DIR' , basename(dirname(__FILE__)) );
+    
+    // aaaand for admin only..
+    define( 'ADMIN_FOLDER_NAME' , basename(dirname(__FILE__)) );
+    define( 'ADMIN_DIR' , WWW_DIR . '/' . ADMIN_FOLDER_NAME );
     
     session_start();
     

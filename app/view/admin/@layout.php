@@ -10,7 +10,7 @@
 
             <?php Admin::renderHTMLContent(); ?>
             
-        <?php if( !Template::$FULL_VIEW ): ?><</div><?php endif; ?>
+        <?php if( !Template::$FULL_VIEW ): ?></div><?php endif; ?>
 
         <?= Template::include( 'footer' ) ?>
     </body>

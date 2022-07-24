@@ -8,10 +8,14 @@ class Admin{
     
     private static $HTML_CONTENT;
     
+    /* ------- ** TEMPLATE FUNCTIONS ** ------- */
+    
     public static function actionIndex_admin(){
         
         self::$HTML_CONTENT = 'OU YEAH!';
     }
+    
+    /* ------- ** SYSTEM FUNCTIONS ** ------- */
     
     /** 
      * Render content for page 
@@ -20,4 +24,7 @@ class Admin{
         
         echo self::$HTML_CONTENT;
     }
+    
+    /* ------- ** ACTION FUNCTIONS ** ------- */
+    
 }

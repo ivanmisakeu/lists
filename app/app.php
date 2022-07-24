@@ -19,6 +19,11 @@ class App {
         // load config
         $this->config_init();
         
+        // define admin site path constant
+        if( defined('ADMIN_FOLDER_NAME') ){
+            define( 'ADMIN_URL' , APP_URL . '/' . ADMIN_FOLDER_NAME );
+        }
+        
         // autoload php classes
         foreach ( self::AUTOLOAD_DIRECTORIES as $autoload_dir ) {
             $this->autoload( $autoload_dir );

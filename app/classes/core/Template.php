@@ -21,6 +21,9 @@ class Template{
     /** @var StdObject */
     private static $VARIABLES;
     
+    /** @var bool */
+    public static $FULL_VIEW = false;
+    
     /**
      * Assign variable to template
      * 

@@ -6,11 +6,11 @@
     <body>
         <?= Template::include( 'header' ) ?>
         
-        <div class="main-container admin-container">
+        <?php if( !Template::$FULL_VIEW ): ?><div class="main-container admin-container"><?php endif; ?>
 
             <?php Admin::renderHTMLContent(); ?>
             
-        </div>
+        <?php if( !Template::$FULL_VIEW ): ?><</div><?php endif; ?>
 
         <?= Template::include( 'footer' ) ?>
     </body>

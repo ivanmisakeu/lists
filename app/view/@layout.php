@@ -6,7 +6,7 @@
     <body>
         <?= Template::include( 'header' ) ?>
         
-        <div class="main-container">
+        <?php if( !Template::$FULL_VIEW ): ?><div class="main-container"><?php endif; ?>
 
             <?php if ( App::$TEENANT && Tenant::getByName( App::$TEENANT ) ): ?>
 
@@ -24,7 +24,7 @@
                 &copy;<?= date('Y') ?> Ivan Mišák | <?= _l('Version') . ' ' . APP_VERSION ?> 
             </div>
             
-        </div>
+        <?php if( !Template::$FULL_VIEW ): ?></div><?php endif; ?>
 
         <?= Template::include( 'footer' ) ?>
     </body>

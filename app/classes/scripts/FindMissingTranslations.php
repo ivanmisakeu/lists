@@ -8,7 +8,20 @@ if ( !defined( 'APP_VERSION' ) ) {
 class FindMissingTranslations {
 
     /** @var array */
+    const EXPLODE_OPTIONS = array(
+        ["Lang::l('","')"],
+        ["Lang::l( '","' )"],
+        ["Lang::l(\"","\")"],
+        ["Lang::l( \"","\" )"],
+        ["_l('","')"],
+        ["_l( '","' )"],
+        ["_l(\"","\")"],
+        ["_l( \"","\" )"]
+    );  
+    
+    /** @var array */
     private static $system_translations = array();
+    
     /** @var array */
     private static $languages_found = array();
 
@@ -105,73 +118,20 @@ class FindMissingTranslations {
         $file_content = file_get_contents( $file_path );
         $file_content = str_replace( '<?php', '', $file_content );
 
-        foreach ( explode( "Lang::l('", $file_content ) as $key => $tmp ) {
+        foreach( self::EXPLODE_OPTIONS as $option){
+            
+            foreach ( explode( $option[0], $file_content ) as $key => $tmp ) {
 
-            if ( $key == 0 ) {
-                continue;
-            }
+                if ( $key == 0 ) {
+                    continue;
+                }
 
-            $tmp = explode( "')", $tmp );
+                $tmp = explode( $option[1], $tmp );
 
-            if ( !in_array( $tmp[ 0 ], self::$system_translations ) ) {
+                if ( !in_array( $tmp[ 0 ], self::$system_translations ) ) {
 
-                self::$system_translations[] = $tmp[ 0 ];
-            }
-        }
-        
-        foreach ( explode( "Lang::l( '", $file_content ) as $key => $tmp ) {
-
-            if ( $key == 0 ) {
-                continue;
-            }
-
-            $tmp = explode( "' )", $tmp );
-
-            if ( !in_array( $tmp[ 0 ], self::$system_translations ) ) {
-
-                self::$system_translations[] = $tmp[ 0 ];
-            }
-        }
-
-        foreach ( explode( 'Lang::l("', $file_content ) as $key => $tmp ) {
-
-            if ( $key == 0 ) {
-                continue;
-            }
-
-            $tmp = explode( '")', $tmp );
-
-            if ( !in_array( $tmp[ 0 ], self::$system_translations ) ) {
-
-                self::$system_translations[] = $tmp[ 0 ];
-            }
-        }
-        
-        foreach ( explode( "_l('", $file_content ) as $key => $tmp ) {
-
-            if ( $key == 0 ) {
-                continue;
-            }
-
-            $tmp = explode( "')", $tmp );
-
-            if ( !in_array( $tmp[ 0 ], self::$system_translations ) ) {
-
-                self::$system_translations[] = $tmp[ 0 ];
-            }
-        }
-        
-        foreach ( explode( "_l( '", $file_content ) as $key => $tmp ) {
-
-            if ( $key == 0 ) {
-                continue;
-            }
-
-            $tmp = explode( "' )", $tmp );
-
-            if ( !in_array( $tmp[ 0 ], self::$system_translations ) ) {
-
-                self::$system_translations[] = $tmp[ 0 ];
+                    self::$system_translations[] = $tmp[ 0 ];
+                }
             }
         }
     }

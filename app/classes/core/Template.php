@@ -6,8 +6,13 @@ if( !defined('APP_VERSION') ){
 
 class Template{
     
+    /* @const string */
     const TEMPLATE_DIR = APP_DIR . '/view';
     
+    /* @const string */
+    const TEMPLATE_DIR_ADMIN = APP_DIR . '/view/admin';
+    
+    /** @var string */
     public static $HTML_TITLE;
     
     /** @var string */
@@ -33,6 +38,20 @@ class Template{
     }
     
     /**
+     * Get template dir in order if user is on admin or in front
+     * @return string
+     */
+    public static function getTemplateDir(){
+        
+        if( defined('ADMIN_DIR') ){
+            
+            return self::TEMPLATE_DIR_ADMIN;
+        }
+        
+        return self::TEMPLATE_DIR;
+    }
+    
+    /**
      * Render layout for application
      */
     public static function layout(){
@@ -48,7 +67,7 @@ class Template{
      */
     public static function setLayout( string $path ){
         
-        if( !file_exists( self::TEMPLATE_DIR . '/' . $path . '.php' ) ){
+        if( !file_exists( self::getTemplateDir() . '/' . $path . '.php' ) ){
             
             throw new Exception('Layout with path "' . $path . '" does not exists');
         }
@@ -96,19 +115,19 @@ class Template{
         }
 
         // load template files
-        if( file_exists( self::TEMPLATE_DIR . '/' . $path . '.php' ) ){
+        if( file_exists( self::getTemplateDir() . '/' . $path . '.php' ) ){
             
             ob_start();
-            include self::TEMPLATE_DIR . '/' . $path . '.php';
+            include self::getTemplateDir() . '/' . $path . '.php';
             $html = ob_get_contents();
             ob_end_clean();
             
             return $html;
         }
-        else if( file_exists( self::TEMPLATE_DIR . '/' . $path . '/index.php' ) ){
+        else if( file_exists( self::getTemplateDir() . '/' . $path . '/index.php' ) ){
             
             ob_start();
-            include self::TEMPLATE_DIR . '/' . $path . '/index.php';
+            include self::getTemplateDir() . '/' . $path . '/index.php';
             $html = ob_get_contents();
             ob_end_clean();
             

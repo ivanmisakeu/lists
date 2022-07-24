@@ -2,11 +2,16 @@
 
 class App {
 
+    /** @var array */
     const AUTOLOAD_DIRECTORIES = [ 'classes/core', 'classes' ];
+    
+    /** @var Dibi\Connection */
     static $DB = null;
-    static $ROUTES = array();
-    static $TEENANT = null;
-    static $URL_METHOD = null;
+    
+    /** @var string */
+    static $TEENANT;
+    
+    /** @var array */
     static $translation_array = array();
 
     public function __construct() {
@@ -26,7 +31,7 @@ class App {
         $this->db_init();
 
         // router initialization
-        $this->router_init();
+        Router::init();
         
         // check db update script
         if( defined('APP_VERSION') && floatval( Settings::get('APP_VERSION') ) < floatval(APP_VERSION) ){
@@ -104,53 +109,6 @@ class App {
                     'password' => DB_PASSWORD,
                     'database' => DB_NAME,
                 ] );
-    }
-
-    public static function router_init() {
-
-        if ( isset( $_REQUEST[ '__path__' ] ) ) {
-
-            self::$ROUTES = explode( '/', $_REQUEST[ '__path__' ] );
-
-            // custom script functions
-            if ( count( self::$ROUTES ) >= 2 && self::$ROUTES[ 0 ] == 'script' ) {
-
-                $class_name = '';
-                foreach( explode('-',self::$ROUTES[ 1 ]) as $part ){
-                    $class_name .= ucfirst($part);
-                }
-                
-                if ( file_exists( APP_DIR . '/classes/scripts/' . $class_name . '.php' ) )
-                {
-                    require_once APP_DIR . '/classes/scripts/' . $class_name . '.php';
-                    
-                    if( method_exists( $class_name, 'do' ) ) {
-
-                        $class_name::do();
-                    }
-                }
-            }
-            
-            // do.. funcitons
-            if ( count( self::$ROUTES ) >= 2 && preg_match( '/^do/um', self::$ROUTES[0] ) ) {
-
-                $class_name = ucfirst( substr( self::$ROUTES[ 0 ], 2 ) );
-                if ( class_exists( $class_name ) && method_exists( $class_name, self::$ROUTES[ 1 ] ) ) {
-
-                    $tmp_class = new $class_name;
-                    $tmp_class::{self::$ROUTES[ 1 ]}();
-                }
-            }
-
-            // basic tenant routing .. 
-            if ( isset( self::$ROUTES[ 0 ] ) ) {
-                self::$TEENANT = self::$ROUTES[ 0 ];
-            }
-
-            if ( isset( $tmp[ 1 ] ) ) {
-                self::$URL_METHOD = self::$ROUTES[ 1 ];
-            }
-        }
     }
 
 }

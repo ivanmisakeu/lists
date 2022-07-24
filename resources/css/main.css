@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
 
-body{
+html,body{
     font-family: 'Roboto', sans-serif;
 }
 
@@ -8,6 +8,14 @@ body{
     max-width: 600px;
     margin: 30px auto;
     padding: 0px 15px;
+}
+
+.main-container.admin-container{
+    max-width: 1020px;
+    margin: 0px auto;
+    border-left: 1px solid #eee;
+    border-right: 1px solid #eee;
+    min-height: 100vh;
 }
 
 .logo{

@@ -1,6 +1,7 @@
 <?php
 
 /** Hey, hey you! Call me: /script/find-missing-translations */
+
 if ( !defined( 'APP_VERSION' ) ) {
     exit();
 }

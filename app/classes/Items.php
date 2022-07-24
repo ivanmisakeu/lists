@@ -121,9 +121,9 @@ class Items extends Core {
      */
     public static function removeItem() {
 
-        if (isset( App::$ROUTES[2] )) {
+        if (isset( Router::$ROUTES[2] )) {
 
-            $item = parent::_get( App::$ROUTES[2], self::TABLE_NAME );
+            $item = parent::_get( Router::$ROUTES[2], self::TABLE_NAME );
 
             if (!$item) {
 
@@ -134,7 +134,7 @@ class Items extends Core {
                 App::$DB->query('UPDATE ' . self::TABLE_NAME . ' SET', [
                     'deleted' => self::ITEM_DELETED,
                     'deleted_date' => Core::now()
-                ], 'WHERE id = ?', (int) App::$ROUTES[2] );
+                ], 'WHERE id = ?', (int) Router::$ROUTES[2] );
 
                 Helper::flash_set( Lang::l( 'Item has been removed' ) );
                 Helper::redirect( APP_URL . '/' . Tenant::getNameById( $item['id_tenant'] ) );

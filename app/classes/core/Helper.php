@@ -47,6 +47,20 @@ class Helper {
     }
     
     /**
+     * Redirect user to url posted in 'redirect_url' field in form
+     */
+    public static function redirect_to_posted_url(){
+        
+        $redirect_url = (defined( 'ADMIN_URL' ) ? ADMIN_URL : APP_URL) . '/';
+                
+        if( isset($_POST['redirect_url']) ){
+            $redirect_url = $_POST['redirect_url'];
+        }
+        
+        self::redirect( $redirect_url );
+    }
+    
+    /**
      * Redirects user home with error message
      */
     public static function redirect_error_home(){
@@ -364,4 +378,21 @@ class Helper {
         return $dir_content;
     }
 
+    /* ------- ** VALIDATION FUNCTIONS ** ------- */
+    
+    /**
+     * Validation of email address
+     * 
+     * @param string $email
+     * @return boolean
+     */
+    public static function validate_email( string $mail ){
+        
+        if (!filter_var($mail, FILTER_VALIDATE_EMAIL) ) {
+            
+            return false;
+        }   
+        
+        return true;
+    }
 }

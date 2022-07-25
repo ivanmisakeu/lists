@@ -149,5 +149,18 @@ class Template{
 
         self::$HTML_TITLE = $title;
     }
+    
+    /**
+     * Add content to generate in layout for admin
+     * 
+     * @param string $path
+     */
+    public static function generate_admin( string $path ){
+        
+        if(class_exists( 'Admin' ) ){
+            
+            Admin::$HTML_CONTENT = self::fetch( $path ); 
+        }
+    }
 
 }

@@ -22,16 +22,16 @@ class Router {
      */
     public static function init() {
 
-        // if path is not defined, we have nothing to do..
-        if ( !isset( $_REQUEST[ '__path__' ] ) ) {
-
-            return;
-        }
-
         // store paths
-        self::$PATH = $_REQUEST[ '__path__' ];
-        self::$ROUTES = explode( '/', $_REQUEST[ '__path__' ] );
-
+        self::$PATH = isset( $_REQUEST[ '__path__' ] ) ? $_REQUEST[ '__path__' ] : null;
+        self::$ROUTES = explode( '/', self::$PATH );
+        
+        // unset last route part if is empty (user just put / on the end of url)
+        if( !strlen( trim( self::$ROUTES[ count(self::$ROUTES) - 1 ] ) ) ){
+            
+            unset( self::$ROUTES[ count(self::$ROUTES) - 1 ] );
+        }
+        
         // custom script functions
         if ( count( self::$ROUTES ) >= 2 && self::$ROUTES[ 0 ] == 'script' ) {
 
@@ -69,7 +69,7 @@ class Router {
         // admin routes..
         if ( defined( 'ADMIN_DIR' ) ) {
 
-            if ( count( self::$ROUTES) >= 2  &&
+            if ( count( self::$ROUTES ) >= 2  &&
                     method_exists( ucfirst( self::$ROUTES[ 0 ] ), 'action' . ucfirst( self::$ROUTES[ 1 ] ) . '_admin' ) ) {
                 
                 self::$ROUTES[ 0 ]::{'action' . ucfirst( self::$ROUTES[ 1 ] ) . '_admin'}();

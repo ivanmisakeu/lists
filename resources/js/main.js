@@ -123,7 +123,7 @@ var _app = {
             /* Check if all required fields are filled up */
             $(document).on('submit','form', function( e ) {
                 
-                var required_input_size = $('.required', $(this) ).length;
+                var required_input_size = $('input.required,select.required,textarea.required', $(this) ).length;
                 var form_el = $(this);
                 
                 if( form_el.hasClass('verified') ){
@@ -137,7 +137,7 @@ var _app = {
                     if( required_input_size ){ 
 
                         var i = 0;
-                        $('.required', $(this) ).each(function(){
+                        $('input.required,select.required,textarea.required', $(this) ).each(function(){
 
                             if( !$(this).val().length ){
 
@@ -161,6 +161,7 @@ var _app = {
                 }
                 
             });
+            
         },
         
         /* Form errors easy peasy UI */
@@ -265,7 +266,32 @@ var _app = {
         }
 
     },
+      
+    string : {
         
+        /**
+         * Generate random string
+         * 
+         * @param {Int} length
+         * @returns {String}
+         */
+        random_string: function (length) {
+
+            if (typeof (length) === 'undefined') {
+                length = 10;
+            }
+
+            var result = '';
+            var characters = 'abcdefghijklmnopqrstuvwxyz0123456789';
+            var charactersLength = characters.length;
+            for (var i = 0; i < length; i++) {
+                result += characters.charAt( Math.floor( Math.random() * characters.length ) );
+            }
+            
+            return result;
+        }
+    },
+    
     /**
      * App init function - agregates all other init funcitons
      * 

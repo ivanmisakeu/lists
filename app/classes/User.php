@@ -20,6 +20,12 @@ class User extends Core {
 
         // @todo
     }
+    
+    public static function actionAdd_admin(){
+        
+        Template::setPageTitle( Lang::l( 'Add new user' ) );
+        Template::generate_admin( 'user/add' );
+    }
 
     public static function actionAuth_admin() {
 
@@ -83,10 +89,22 @@ class User extends Core {
 
         if ( isset( $_POST[ 'mail' ] ) && isset( $_POST[ 'password' ] ) ) {
 
+            if( !Helper::validate_email( $_POST[ 'mail' ] ) ){
+               
+                Helper::flash_set( Lang::l( 'Email address is not valid' ), Helper::FLASH_DANGER );
+                Helper::redirect_to_posted_url();
+            }
+            
             if ( self::checkMailExists( $_POST[ 'mail' ] ) ) {
 
-                Helper::flash_set( Lang::l( 'Tenant already exists' ), Helper::FLASH_DANGER );
-                Helper::redirect( (defined( 'ADMIN_URL' ) ? ADMIN_URL : APP_URL) . '/' );
+                Helper::flash_set( Lang::l( 'User with given email already exists' ), Helper::FLASH_DANGER );
+                Helper::redirect_to_posted_url();
+            }
+            
+            if( strlen( $_POST[ 'password' ] ) < 8 ){
+                
+                Helper::flash_set( Lang::l( 'Password must be at least 8 characters long' ), Helper::FLASH_DANGER );
+                Helper::redirect_to_posted_url();
             }
 
             parent::insert( [
@@ -97,11 +115,7 @@ class User extends Core {
                     ], self::TABLE_NAME );
             
             Helper::flash_set( Lang::l( 'User has been created' ) );
-            
-            // getting referer
-            $referer = isset( $_SERVER[ 'HTTP_REFERER' ] ) && strlen( $_SERVER[ 'HTTP_REFERER' ] ) ? $_SERVER[ 'HTTP_REFERER' ] : '/';
-    
-            Helper::redirect( $referer );
+            Helper::redirect_to_posted_url();
         }
 
         Helper::redirect_error_home();

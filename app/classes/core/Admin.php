@@ -6,7 +6,7 @@ if (!defined( 'APP_VERSION' )) {
 
 class Admin{
     
-    private static $HTML_CONTENT;
+    public static $HTML_CONTENT;
     
     /* ------- ** TEMPLATE FUNCTIONS ** ------- */
     

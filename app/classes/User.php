@@ -14,10 +14,13 @@ class User extends Core {
     const USER_DELETED = 1;
     const USER_ACTIVE = 0;
     
+    public static $CURRENT_USER;
+    
     /* ------- ** TEMPLATE FUNCTIONS ** ------- */
 
     public static function actionIndex_admin() {
 
+        Helper::dd( self::$CURRENT_USER );
         // @todo
     }
     
@@ -29,14 +32,27 @@ class User extends Core {
 
     public static function actionAuth_admin() {
 
+        // redirect user to homepage if is signed in
+        if( self::$CURRENT_USER ){
+            
+            ucfirst( Router::DEFAULT_ADMIN_CONTROLLER )::actionIndex_admin();
+            return;
+        }
+        
         Template::$FULL_VIEW = true;
 
-        // @todo
+        Template::setPageTitle( Lang::l( 'Sign in' ) );
+        Template::generate_admin( 'user/auth' );
     }
 
     public static function actionLogout_admin() {
 
-        // @todo
+        if( isset($_SESSION['token'])) {
+            unset( $_SESSION['token'] );
+        }
+        
+        Helper::flash_set( Lang::l('You were signed out') );
+        Helper::redirect( ADMIN_URL );
     }
 
     /* ------- ** DATABASE FUNCTIONS ** ------- */
@@ -78,7 +94,38 @@ class User extends Core {
                 WHERE 
                     mail = ? ';
 
-        return APP::$DB->query( $sql, $mail )->fetchSingle();
+        return APP::$DB->query( $sql, $mail )->fetch();
+    }
+    
+    /**
+     * Find user following his login token
+     * 
+     * @param string $token
+     * @return array
+     */
+    public static function getUserByToken( string $token ) {
+
+        $sql = '
+                SELECT 
+                    * 
+                FROM ' . self::TABLE_NAME . ' 
+                WHERE 
+                    token = ? ';
+
+        return APP::$DB->query( $sql, $token )->fetch();
+    }
+    
+    /**
+     * Store generated login token to user in db
+     * 
+     * @param string $token
+     */
+    public static function storeToken( string $token ){
+        
+        App::$DB->query('UPDATE ' . self::TABLE_NAME . ' SET %a', array(
+            'token' => $token,
+            'updated' => Core::now()
+        ));
     }
 
     /* ------- ** ACTION FUNCTIONS ** ------- */
@@ -121,4 +168,50 @@ class User extends Core {
         Helper::redirect_error_home();
     }
 
+    public static function authentificateUser(){
+        
+        Helper::captcha_verify();
+
+        if ( isset( $_POST[ 'mail' ] ) && isset( $_POST[ 'password' ] ) ) {
+            
+            $user = self::getUserByMail( $_POST['mail'] );
+
+            if( !$user || $user['password'] != Helper::str_hash_password( $_POST[ 'password' ] ) || $user['deleted'] == 1 ){
+                
+                Helper::flash_set( Lang::l( 'Authentification failed' ), Helper::FLASH_DANGER );
+                Helper::redirect_to_posted_url();
+            }
+            
+            $login_token = Helper::str_generate_uuid();
+            
+            $_SESSION['token'] = $login_token;
+            self::storeToken( $login_token );
+            
+            Helper::flash_set( Lang::l( 'You were successfully signed-up' ) );
+            Helper::redirect_to_posted_url();
+        }
+        
+        Helper::redirect_error_home();
+    }
+    
+    /* ------- ** OTHER FUNCTIONS ** ------- */
+    
+    /**
+     * Check if user is logged, otherwise redirect him to login form
+     */
+    public static function checkLogged(){
+        
+        self::$CURRENT_USER = self::getUserByToken( isset($_SESSION['token']) ? $_SESSION['token'] : '' );
+        
+        if( !self::$CURRENT_USER && Router::$PATH != 'user/auth'){
+            
+            Helper::redirect( ADMIN_URL . '/user/auth' );
+        }
+        else if( self::$CURRENT_USER && Router::$PATH == 'user/auth' ){
+            
+            Helper::redirect( ADMIN_URL );
+        }
+        
+        
+    }
 }

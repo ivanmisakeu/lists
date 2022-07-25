@@ -69,6 +69,8 @@ class Router {
         // admin routes..
         if ( defined( 'ADMIN_DIR' ) ) {
 
+            User::checkLogged();
+            
             if ( count( self::$ROUTES ) >= 2  &&
                     method_exists( ucfirst( self::$ROUTES[ 0 ] ), 'action' . ucfirst( self::$ROUTES[ 1 ] ) . '_admin' ) ) {
                 

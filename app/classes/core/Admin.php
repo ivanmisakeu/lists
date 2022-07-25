@@ -11,7 +11,7 @@ class Admin{
     /* ------- ** TEMPLATE FUNCTIONS ** ------- */
     
     public static function actionIndex_admin(){
-        
+
         self::$HTML_CONTENT = 'OU YEAH!';
     }
     

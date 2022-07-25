@@ -187,7 +187,7 @@ class User extends Core {
             $_SESSION['token'] = $login_token;
             self::storeToken( $login_token );
             
-            Helper::flash_set( Lang::l( 'You were successfully signed-up' ) );
+            Helper::flash_set( Lang::l( 'You were successfully signed in' ) );
             Helper::redirect_to_posted_url();
         }
         

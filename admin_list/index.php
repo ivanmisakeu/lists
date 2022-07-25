@@ -6,8 +6,8 @@
     
     // aaaand for admin only..
     define( 'ADMIN_FOLDER_NAME' , basename(dirname(__FILE__)) );
-    define( 'ADMIN_DIR' , WWW_DIR . '/' . ADMIN_FOLDER_NAME );
-    
+    define( 'ADMIN_DIR' , __DIR__ );
+
     session_start();
     
     // getting backbone of the app

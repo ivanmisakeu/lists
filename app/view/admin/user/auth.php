@@ -3,7 +3,7 @@
     
     <h1 class="m-t-0">
         <i class="fa fa-unlock-alt color" aria-hidden="true"></i>
-        <?= _l( 'Login' ) ?>
+        <?= _l( 'Sign in' ) ?>
     </h1>
 
     <form action="<?= APP_URL ?>/doUser/authentificateUser" method="post" autocomplete="off">

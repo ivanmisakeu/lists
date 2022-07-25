@@ -6,7 +6,11 @@ if (!defined( 'APP_VERSION' )) {
 
 class Admin{
     
+    /** @var string */
     public static $HTML_CONTENT;
+    
+    /** @const array */
+    public static $MENU = array(); 
     
     /* ------- ** TEMPLATE FUNCTIONS ** ------- */
     
@@ -27,4 +31,14 @@ class Admin{
     
     /* ------- ** ACTION FUNCTIONS ** ------- */
     
+    
+    /* ------- ** OTHER FUNCTIONS ** ------- */
+    
+    public static function menuInit(){
+        
+        self::$MENU = array(
+            'tenant' => [ Lang::l('Lists') , 'fa-list-ul'],
+            'user' => [ Lang::l('Users') , 'fa-user-o' ]
+        );
+    }
 }

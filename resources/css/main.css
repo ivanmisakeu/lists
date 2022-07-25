@@ -24,11 +24,13 @@ label.required::after{
 }
 
 .main-container.admin-container{
-    max-width: 1020px;
+    max-width: 100%;
+    width: 100%;
     margin: 0px auto;
     border-left: 1px solid #eee;
     border-right: 1px solid #eee;
     min-height: 100vh;
+    padding: 0px;
 }
 
 .main-container.admin-container h1:first-child{
@@ -150,7 +152,7 @@ h1 .fa-list-ul{
 
 .admin-header-wrapper{
     background:  #eee;
-    margin: 0px -15px 15px -15px;
+    margin: 0px;
     padding: 10px 15px;
 }
 .admin-header-wrapper .logo-wrapper{
@@ -166,4 +168,40 @@ h1 .fa-list-ul{
     height: 25px;
     position: relative;
     top: -3px;
+}
+
+.admin-menu-wrapper{
+    background: #eee;
+    min-height: 100vh;
+    padding: 15px 0px;
+    max-width: 180px;
+    width: 100%;
+    float:left;
+}
+.admin-content-wrapper{
+    padding: 15px;
+    float: left;
+}
+.admin-menu-wrapper ul{
+    list-style-type: none;
+    margin: 0px;
+    padding: 0px;
+}
+.admin-menu-wrapper ul li{
+    
+}
+.admin-menu-wrapper ul li i{
+    min-width: 20px;
+}
+.admin-menu-wrapper ul li a{
+    color: #000;
+    text-decoration: none;
+    display: block;
+    padding: 3px 15px;
+}
+.admin-menu-wrapper ul li:hover a{
+    color: #23527c;
+}
+.admin-menu-wrapper ul li.bt-1{
+    border-top: 1px solid #ccc;
 }

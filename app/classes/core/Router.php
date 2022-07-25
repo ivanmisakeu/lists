@@ -69,8 +69,13 @@ class Router {
         // admin routes..
         if ( defined( 'ADMIN_DIR' ) ) {
 
+            // check if user is signed in
             User::checkLogged();
             
+            // initialize admin menu
+            Admin::menuInit();
+            
+            // do the magic work powerfull wizard..
             if ( count( self::$ROUTES ) >= 2  &&
                     method_exists( ucfirst( self::$ROUTES[ 0 ] ), 'action' . ucfirst( self::$ROUTES[ 1 ] ) . '_admin' ) ) {
                 

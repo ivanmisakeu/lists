@@ -24,6 +24,9 @@ class Template{
     /** @var bool */
     public static $FULL_VIEW = false;
     
+    /** @var array */
+    public static $BREADCRUMBS = array();
+    
     /**
      * Assign variable to template
      * 
@@ -97,7 +100,7 @@ class Template{
         
         echo self::fetch( $path ); 
     }
-    
+        
     /**
     * Return single template as HTML
     * 

@@ -6,14 +6,41 @@
     <body>
         
         <?php if( !Template::$FULL_VIEW ): ?>
+        
         <div class="main-container admin-container">
             <?= Template::include( 'header' ) ?>
-        <?php endif; ?>
-
-            <?php Admin::renderHTMLContent(); ?>
             
-        <?php if( !Template::$FULL_VIEW ): ?>
+            <div class="admin-menu-wrapper">
+                <ul>
+                    <?php foreach( Admin::$MENU as $class_name => $row ): ?>
+                    <li class="<?= Router::$ROUTES[0] == $class_name ? 'active' : '' ?>">
+                        <a href="<?= ADMIN_URL . '/' . $class_name ?>">
+                            <?php if( isset($row[1]) ):?>
+                            <i class="fa <?= $row[1] ?>" aria-hidden="true"></i>
+                            <?php endif; ?> 
+                            <?= $row[0] ?>
+                        </a>
+                    </li>
+                    <?php endforeach; ?>
+                    <li class="bt-1">
+                        <a href="<?= ADMIN_URL . '/user/logout' ?>">
+                            <i class="fa fa-sign-out" aria-hidden="true"></i> <?= _l('Sign out') ?>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            
+            <div class="admin-content-wrapper">
+                <?php Admin::renderHTMLContent(); ?>
+            </div>
+            
+            <div class="clearfix"></div>
         </div>
+        
+        <?php else: ?>
+            
+            <?php Admin::renderHTMLContent(); ?>
+        
         <?php endif; ?>
 
         <?= Template::include( 'footer' ) ?>

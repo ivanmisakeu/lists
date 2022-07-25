@@ -20,8 +20,8 @@ class User extends Core {
 
     public static function actionIndex_admin() {
 
-        Helper::dd( self::$CURRENT_USER );
-        // @todo
+        Template::assign( 'users', self::getAll() );
+        Template::generate_admin( 'user/index' );
     }
     
     public static function actionAdd_admin(){
@@ -68,6 +68,22 @@ class User extends Core {
         return parent::_get( $id, self::TABLE_NAME );
     }
 
+    /**
+     * Get list of all active users
+     * 
+     * @return array
+     */
+    public static function getAll(){
+        
+        $sql = '
+                SELECT 
+                    * 
+                FROM ' . self::TABLE_NAME . ' 
+                WHERE 
+                    deleted = ' . self::USER_ACTIVE;
+
+        return APP::$DB->query( $sql )->fetchAll();
+    }
     /**
      * Check if user email is already taken
      * 

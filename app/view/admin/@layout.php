@@ -7,8 +7,9 @@
         
         <?php if( !Template::$FULL_VIEW ): ?>
         
+        <?= Template::include( 'header' ) ?>
+        
         <div class="main-container admin-container">
-            <?= Template::include( 'header' ) ?>
             
             <div class="admin-menu-wrapper">
                 <ul>

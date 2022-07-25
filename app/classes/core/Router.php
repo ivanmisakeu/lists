@@ -74,17 +74,17 @@ class Router {
             
             // initialize admin menu
             Admin::menuInit();
-            
+    
             // do the magic work powerfull wizard..
             if ( count( self::$ROUTES ) >= 2  &&
                     method_exists( ucfirst( self::$ROUTES[ 0 ] ), 'action' . ucfirst( self::$ROUTES[ 1 ] ) . '_admin' ) ) {
                 
-                self::$ROUTES[ 0 ]::{'action' . ucfirst( self::$ROUTES[ 1 ] ) . '_admin'}();
+                ucfirst( self::$ROUTES[ 0 ] )::{'action' . ucfirst( self::$ROUTES[ 1 ] ) . '_admin'}();
             }
-            elseif( self::$ROUTES == 1 && 
+            elseif( count( self::$ROUTES ) == 1 && 
                 method_exists( ucfirst( self::$ROUTES[ 0 ] ), 'actionIndex_admin' ) ) {
-                
-                self::$ROUTES[ 0 ]::actionIndex_admin();
+
+                ucfirst( self::$ROUTES[ 0 ] )::actionIndex_admin();
             }
             else{
                 

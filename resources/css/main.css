@@ -3,26 +3,21 @@
 html,body{
     font-family: 'Roboto', sans-serif;
 }
-
 .main-container{
     max-width: 600px;
     margin: 30px auto;
     padding: 0px 15px;
 }
-
 a.no-underline{
     text-decoration: none;
 }
-
 .color{
     color: #4a8af5;
 }
-
 label.required::after{
     content: ' *';
     color: #f00;
 }
-
 .main-container.admin-container{
     max-width: 100%;
     width: 100%;
@@ -31,12 +26,15 @@ label.required::after{
     border-right: 1px solid #eee;
     min-height: 100vh;
     padding: 0px;
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    flex: 0 0 100%;
 }
-
 .main-container.admin-container h1:first-child{
     margin-top: 0px;
+    margin-bottom: 20px;
 }
-
 .logo{
     display: inline-block;
     margin-right: 0px;
@@ -50,14 +48,12 @@ label.required::after{
     top: 7px;
     border-radius: 5px;
 }
-
 input.error,
 select.error,
 textarea.error{
     border: 1px solid #f00;
     box-shadow: 0px 0px 3px 0px #f00;
 }
-
 .main-container input,
 .main-container button,
 .main-container select,
@@ -66,11 +62,9 @@ textarea.error{
 .sign-in-wrapper input{
     border-radius: 0px;
 }
-
 .main-container .table-bordered>tbody>tr>td{
     padding: 0px;
 }
-
 .main-container td .link{
     background-color: transparent;
     display: block;
@@ -79,18 +73,15 @@ textarea.error{
     text-decoration: none;
     cursor: pointer;
 }
-
 .main-container td .link:hover{
     background-color: #dfecf7;
 }
-
 .main-container td .link i{
     font-size: 20px;
     position: relative;
     top: 0px;
     margin: 0px 3px 0px 15px;
 }
-
 #flash-message{
     position: fixed;
     top: 0px;
@@ -101,7 +92,6 @@ textarea.error{
     border-top: 0px;
     text-align: center;
 }
-
 .btn-primary {
     color: #fff;
     background-color: #4a8af5;
@@ -111,23 +101,19 @@ textarea.error{
 .btn-primary:hover{
     background-color: #4379d4;
 }
-
 h1 .fa-list-ul{
     font-size: 25px;
     position: relative;
     top: -3px;
 }
-
 .modal-content{
     border-radius: 0px !important;
 }
-
 .copyright{
     font-size: 11px;
     color: #999;
     margin-top: -10px;
 }
-
 .items-list-config-pointer{
     float: right;
     color: #999;
@@ -138,18 +124,15 @@ h1 .fa-list-ul{
 .items-list-config-pointer:hover{
     color: #4a8af5;
 }
-
 .sign-in-wrapper{
     margin: 50px auto 30px auto;
     border: 1px solid #eee;
     max-width: 580px;
     padding: 15px;
 }
-
 .m-t-0{
     margin-top: 0px;
 }
-
 .admin-header-wrapper{
     background:  #eee;
     margin: 0px;
@@ -169,18 +152,16 @@ h1 .fa-list-ul{
     position: relative;
     top: -3px;
 }
-
 .admin-menu-wrapper{
     background: #eee;
     min-height: 100vh;
     padding: 15px 0px;
     max-width: 180px;
     width: 100%;
-    float:left;
 }
 .admin-content-wrapper{
     padding: 15px;
-    float: left;
+    width: 100%;
 }
 .admin-menu-wrapper ul{
     list-style-type: none;
@@ -188,7 +169,7 @@ h1 .fa-list-ul{
     padding: 0px;
 }
 .admin-menu-wrapper ul li{
-    
+
 }
 .admin-menu-wrapper ul li i{
     min-width: 20px;
@@ -204,4 +185,16 @@ h1 .fa-list-ul{
 }
 .admin-menu-wrapper ul li.bt-1{
     border-top: 1px solid #ccc;
+}
+.main-container .table-bordered.table-admin>tbody>tr>td{
+    padding: 8px;
+}
+.text-success{
+    color: #28a745!important;
+}
+.text-danger{
+    color: #dc3545!important;
+}
+.m-t-sm{
+    margin-top:20px;
 }

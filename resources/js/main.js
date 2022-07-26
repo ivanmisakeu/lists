@@ -229,6 +229,14 @@ var _app = {
                 }
             });
 
+            /* close modal on click outside main content */
+            $(document).on('click','.modal',function(e){
+
+                if( $(e.target).hasClass('modal') ){
+                    $(e.target).hide();
+                }
+            });
+
         },
             
         /**

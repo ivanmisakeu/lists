@@ -189,6 +189,13 @@ h1 .fa-list-ul{
 .admin-menu-wrapper ul li.bt-1{
     border-top: 1px solid #ccc;
 }
+.admin-container .table-admin,
+.admin-container form{
+    width: auto;
+}
+.admin-container form{
+    max-width: 640px;
+}
 .main-container .table-bordered.table-admin>tbody>tr>td{
     padding: 8px;
 }

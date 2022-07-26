@@ -10,12 +10,12 @@
      
     <div class="form-group">
         <label for="mail" class="required"><?= _l('Email address'); ?></label>
-        <input type="text" name="mail" class="form-control required" autocomplete="off" />
+        <input type="text" name="mail" class="form-control required" autocomplete="nope" />
     </div>
     
     <div class="form-group">
         <label for="password" class="required"><?= _l('Password'); ?></label>
-        <input type="password" name="password" class="form-control required" autocomplete="off" />
+        <input type="password" name="password" class="form-control required" autocomplete="new-password" />
         <small style="margin-top: 5px;" class="pull-right">
             <a href="#" onClick="$('[name=password]').val( _app.string.random_string() ).attr('type','text'); return false;" class="btn btn-xs btn-default">
                 <i class="fa fa-random" aria-hidden="true"></i> <?= _l('generate') ?>

@@ -29,6 +29,27 @@ class User extends Core {
         Template::setPageTitle( Lang::l( 'Add new user' ) );
         Template::generate_admin( 'user/add' );
     }
+    
+    public static function actionEdit_admin(){
+        
+        if( !isset(Router::$ROUTES[2]) ){
+            
+            Helper::flash_set( Lang::l('User not found') , Helper::FLASH_DANGER );
+            Helper::redirect( ADMIN_URL . '/user' );
+        }
+        
+        $user = User::get( Router::$ROUTES[2] );
+        
+        if( !$user ){
+            
+            Helper::flash_set( Lang::l('User not found') , Helper::FLASH_DANGER );
+            Helper::redirect( ADMIN_URL . '/user' );
+        }
+        
+        Template::setPageTitle( Lang::l( 'Edit user' ) . ' ' . $user['name'] );
+        Template::assign( 'user' , $user);
+        Template::generate_admin( 'user/edit' );
+    }
 
     public static function actionAuth_admin() {
 
@@ -181,6 +202,64 @@ class User extends Core {
             Helper::redirect_to_posted_url();
         }
 
+        Helper::redirect_error_home();
+    }
+    
+    public static function editUser(){
+        
+        Helper::captcha_verify();
+        
+        if( !isset(Router::$ROUTES[2]) ){
+            
+            Helper::redirect_error_home();
+        }
+        
+        $user = User::get( Router::$ROUTES[2] );
+        
+        if( !$user ){
+            
+            Helper::flash_set( Lang::l('User not found') , Helper::FLASH_DANGER );
+            Helper::redirect( ADMIN_URL . '/user' );
+        }
+        
+        if ( isset( $_POST[ 'mail' ] ) && isset( $_POST[ 'name' ] ) ) {
+            
+            if( !Helper::validate_email( $_POST[ 'mail' ] ) ){
+               
+                Helper::flash_set( Lang::l( 'Email address is not valid' ), Helper::FLASH_DANGER );
+                Helper::redirect( ADMIN_URL . '/user/edit' . $user['id'] );
+            }
+            
+            if ( $user['mail'] != $_POST[ 'mail' ] && self::checkMailExists( $_POST[ 'mail' ] ) ) {
+
+                Helper::flash_set( Lang::l( 'User with given email already exists' ), Helper::FLASH_DANGER );
+                Helper::redirect( ADMIN_URL . '/user/edit' . $user['id'] );
+            }
+            
+            $update_data = array(
+                'name' => $_POST['name'],
+                'mail' => $_POST['mail'],
+                'admin' => isset($_POST['admin']) ? (int) $_POST['admin'] : 0,
+                'updated' => Core::now()
+            );
+            
+            if( isset($_POST[ 'password' ]) && strlen($_POST[ 'password' ]) ){
+                
+                if( strlen( $_POST[ 'password' ] ) < 8 ){
+                
+                    Helper::flash_set( Lang::l( 'Password must be at least 8 characters long' ), Helper::FLASH_DANGER );
+                    Helper::redirect_to_posted_url();
+                }
+                
+                $update_data['password'] = Helper::str_hash_password( $_POST[ 'password' ] );
+            }
+            
+            App::$DB->query('UPDATE ' . self::TABLE_NAME . ' SET', $update_data , 'WHERE id = ?', (int) $user['id'] );
+            
+            Helper::flash_set( Lang::l( 'User has been updated' ) );
+            Helper::redirect_to_posted_url();
+        }
+        
         Helper::redirect_error_home();
     }
 

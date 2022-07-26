@@ -2,4 +2,4 @@
 RewriteEngine on
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule ^(.*)$ /admin_list/index.php?__path__=$1 [NC,L,QSA]
+RewriteRule ^(.*)$ /admin/index.php?__path__=$1 [NC,L,QSA]

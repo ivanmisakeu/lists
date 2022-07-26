@@ -34,9 +34,10 @@ label.required::after{
     width: 100%;
     flex: 0 0 100%;
 }
-.main-container.admin-container h1:first-child{
+.main-container.admin-container h1:nth-child(1),
+.main-container.admin-container h1:nth-child(2){
     margin-top: 0px;
-    margin-bottom: 20px;
+    padding-bottom: 20px;
 }
 .logo{
     display: inline-block;

@@ -17,6 +17,12 @@ class Tenant extends Core {
         Template::render( 'tenant' );
     }
 
+    public static function actionIndex_admin() {
+
+        Template::assign( 'tenants', self::getAll() );
+        Template::generate_admin( 'tenant/index' );
+    }
+    
     /* ------- ** DATABASE FUNCTIONS ** ------- */
 
     /**
@@ -65,6 +71,24 @@ class Tenant extends Core {
                     id = ' . (int) $id;
 
         return APP::$DB->query( $sql )->fetchSingle();
+    }
+    
+    /**
+     * Get all tenants list
+     * 
+     * @return array
+     */
+    public static function getAll(){
+        
+        $sql = '
+                SELECT 
+                    * 
+                FROM ' . self::TABLE_NAME . ' 
+                WHERE 
+                    active = ' . self::TENANT_ACTIVE . ' 
+                ORDER BY name ASC';
+
+        return APP::$DB->query( $sql )->fetchAll();
     }
 
     /**

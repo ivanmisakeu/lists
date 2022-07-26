@@ -41,11 +41,16 @@
                     <a class="btn btn-xs btn-primary" href="<?= ADMIN_URL . '/user/edit/' . $user['id'] ?>">
                         <i class="fa fa-pencil" aria-hidden="true"></i> <?= _l('Edit') ?>
                     </a>
+                    <a onClick="return _app.modals.removeUser_admin(<?= $user['id'] ?>,'<?= $user['name'] ?>','<?= $user['mail'] ?>');" class="btn btn-xs btn-danger" href="#">
+                        <i class="fa fa-trash" aria-hidden="true"></i> <?= _l('Delete') ?>
+                    </a>
                 </td>
             </tr>
             <?php endforeach; ?>
         </tbody>
     </table>
+
+    <?php Template::render('user/modals/delete'); ?>
 
 <?php else: ?>
 

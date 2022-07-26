@@ -289,6 +289,35 @@ class User extends Core {
         Helper::redirect_error_home();
     }
     
+    public static function removeUser(){
+        
+        Helper::captcha_verify();
+        
+        if( !isset($_POST['id_user']) ){
+            
+            Helper::redirect_error_home();
+        }
+        
+        $user = User::get( $_POST['id_user'] );
+        
+        if( !$user || $user['deleted'] == self::USER_DELETED ){
+            
+            Helper::flash_set( Lang::l('User not found') , Helper::FLASH_DANGER );
+            Helper::redirect_to_posted_url();
+        }
+        
+        $update_data = array(
+            'deleted' => self::USER_DELETED,
+            'updated' => Core::now()
+        );
+        
+        App::$DB->query('UPDATE ' . self::TABLE_NAME . ' SET', $update_data , 'WHERE id = ?', (int) $user['id'] );
+        
+        Helper::flash_set( Lang::l('User has been deleted') );
+        Helper::redirect_to_posted_url();
+        
+    }
+    
     /* ------- ** OTHER FUNCTIONS ** ------- */
     
     /**
@@ -306,7 +335,6 @@ class User extends Core {
             
             Helper::redirect( ADMIN_URL );
         }
-        
         
     }
 }

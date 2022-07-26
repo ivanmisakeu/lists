@@ -271,6 +271,23 @@ var _app = {
             el.show();
             
             return false;
+        },
+        
+        /**
+         * how modal to remove user :: admin 
+         * 
+         * @param {Int} id
+         * @param {String} name
+         * @returns {Boolean}
+         */
+        removeUser_admin : function( id , name, mail ){
+            
+            var el = $('#removeUserModal');
+            $('input[name=id_user]', el).val( id );
+            $('.modal-header p' , el).html( '<i class="fa fa-user-o" aria-hidden="true"></i> #' + id + ' - <strong>' + name + '</strong> (' + mail + ')' );
+            el.show();
+            
+            return false;
         }
 
     },

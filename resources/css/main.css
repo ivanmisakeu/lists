@@ -194,6 +194,17 @@ h1 .fa-list-ul{
 .admin-container form{
     width: auto;
 }
+.admin-container .table-admin{
+    max-width: 1200px;
+    width: 100%;
+}
+.admin-container .table-admin td,
+.admin-container .table-admin th{
+    vertical-align: center;
+}
+.nowrap{
+   white-space: nowrap;
+}
 .admin-container form{
     max-width: 640px;
 }

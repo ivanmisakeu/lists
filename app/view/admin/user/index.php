@@ -25,24 +25,29 @@
         <tbody>
             <?php foreach( $users as $user): ?>
             <tr>
-                <td align="right">
+                <td width="50" align="right">
                 #<?= $user['id'] ?>
                 </td>
                 <td>
                     <a href="mailto:<?= $user['mail'] ?>"><?= $user['mail'] ?></a>
                 </td>
-                <td align="center" class="<?= $user['admin'] ? 'text-success' : '' ?>">
+                <td width="80" align="center" class="<?= $user['admin'] ? 'text-success' : '' ?>">
                     <i class="fa <?= $user['admin'] ? 'fa-check' : 'fa-times' ?>" aria-hidden="true"></i>
                 </td>
-                <td>
+                <td width="140" class="nowrap">
                     <?= $user['created']->format(APP_HUMAN_DATE) ?>
                 </td>
-                <td>
+                <td  class="nowrap">
                     <a class="btn btn-xs btn-primary" href="<?= ADMIN_URL . '/user/edit/' . $user['id'] ?>">
                         <i class="fa fa-pencil" aria-hidden="true"></i> <?= _l('Edit') ?>
                     </a>
-                    <a onClick="return _app.modals.removeUser_admin(<?= $user['id'] ?>,'<?= $user['name'] ?>','<?= $user['mail'] ?>');" class="btn btn-xs btn-danger" href="#">
-                        <i class="fa fa-trash" aria-hidden="true"></i> <?= _l('Delete') ?>
+                    <a onClick="
+                        return _app.modals.removeUser_admin(<?= $user['id'] ?>,
+                            '<?= $user['name'] ?>',
+                            '<?= $user['mail'] ?>');" 
+                        class="btn btn-xs btn-danger" 
+                        href="#">
+                            <i class="fa fa-trash" aria-hidden="true"></i> <?= _l('Delete') ?>
                     </a>
                 </td>
             </tr>

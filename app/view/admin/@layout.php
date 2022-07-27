@@ -15,7 +15,7 @@
                 <ul>
                     <?php foreach( Admin::$MENU as $class_name => $row ): ?>
                     <li class="<?= Router::$ROUTES[0] == $class_name ? 'active' : '' ?>">
-                        <a href="<?= ADMIN_URL . '/' . $class_name ?>">
+                        <a href="<?= ADMIN_URL . '/' . $class_name ?>" class="nowrap">
                             <?php if( isset($row[1]) ):?>
                             <i class="fa <?= $row[1] ?>" aria-hidden="true"></i>
                             <?php endif; ?> 
@@ -23,7 +23,7 @@
                         </a>
                     </li>
                     <?php endforeach; ?>
-                    <li class="bt-1">
+                    <li class="bt-1 nowrap">
                         <a href="<?= ADMIN_URL . '/user/logout' ?>">
                             <i class="fa fa-sign-out" aria-hidden="true"></i> <?= _l('Sign out') ?>
                         </a>

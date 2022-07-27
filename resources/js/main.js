@@ -274,7 +274,7 @@ var _app = {
         },
         
         /**
-         * how modal to remove user :: admin 
+         * Show modal to remove user :: admin 
          * 
          * @param {Int} id
          * @param {String} name
@@ -288,7 +288,45 @@ var _app = {
             el.show();
             
             return false;
-        }
+        },
+        
+        /**
+         * Show modal to disable tenant :: admin
+         * 
+         * @param {Int} id
+         * @param {String} name
+         * @param {String} title
+         * @returns {Boolean}
+         */
+        disableTenant_admin : function( id , name, title ){
+            
+            var el = $('#disableTenantModal');
+            
+            $('input[name=id_tenant]', el).val( id );
+            $('.modal-header p' , el).html( '<i class="fa fa-fa-list-ul" aria-hidden="true"></i> #' + id + ' "' + title + '" - <strong><i class="fa fa-link" aria-hidden="true"></i> ' + name + '</strong>' );
+            el.show();
+            
+            return false;
+        },
+        
+        /**
+         * Show modal to enable tenant :: admin
+         * 
+         * @param {Int} id
+         * @param {String} name
+         * @param {String} title
+         * @returns {Boolean}
+         */
+        enableTenant_admin : function( id , name, title ){
+            
+            var el = $('#enableTenantModal');
+            
+            $('input[name=id_tenant]', el).val( id );
+            $('.modal-header p' , el).html( '<i class="fa fa-fa-list-ul" aria-hidden="true"></i> #' + id + ' "' + title + '" - <strong><i class="fa fa-link" aria-hidden="true"></i> ' + name + '</strong>' );
+            el.show();
+            
+            return false;
+        },
 
     },
       
@@ -300,7 +338,7 @@ var _app = {
          * @param {Int} length
          * @returns {String}
          */
-        random_string: function (length) {
+        random_string: function( length ) {
 
             if (typeof (length) === 'undefined') {
                 length = 10;
@@ -314,6 +352,23 @@ var _app = {
             }
             
             return result;
+        },
+        
+        /**
+         * Update string as URL address
+         * 
+         * @param {String} text
+         * @returns {String}
+         */
+        make_url: function( text ){
+            
+            text = text.toLowerCase();
+            text = text.replace(/[^0-9a-zA-Z\.\-_]/gm, "-");
+            text = text.replace(/-{2,}/gm, "-");
+            text = text.replace(/^[-|\/\/]/gm, "");
+            text = text.replace(/[-|\/\/]$/gm, "");
+            
+            return text;
         }
     },
     

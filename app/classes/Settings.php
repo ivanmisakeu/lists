@@ -66,4 +66,67 @@ class Settings extends Core {
         return $namespace;
     }
 
+    /**
+     * Get last db backup sql file
+     * 
+     * @return \StdObject
+     */
+    public static function getLastDbBackup(){
+        
+        $files = Helper::scan_dir( APP_DIR . '/sql/backup', ['sql'] );
+        
+        if( count($files) ){
+            
+            $file = end( $files );
+            
+            return new StdObject([
+                'path' => $file,
+                'link' => APP_URL . '/app/sql/backup/' . Helper::str_get_filename_form_path($file), 
+                'name' => Helper::str_get_filename_form_path($file)
+            ]);
+        }
+        
+        return null;
+    }
+    
+    /**
+     * Get last SQL migration file done
+     * 
+     * @return array
+     */
+    public static function getLastMigrationFileDone(){
+        
+        $sql = '
+                SELECT 
+                    * 
+                FROM migration 
+                ORDER BY created DESC
+                LIMIT 1';
+
+        return APP::$DB->query( $sql )->fetch();
+        
+    }
+    
+    /**
+     * Get last db backup sql file
+     * 
+     * @return \StdObject
+     */
+    public static function getLastDbMigrationFile(){
+        
+        $files = Helper::scan_dir( APP_DIR . '/sql/migration', ['sql'] );
+        
+        if( count($files) ){
+            
+            $file = end( $files );
+            
+            return new StdObject([
+                'path' => $file,
+                'link' => APP_URL . '/app/sql/migration/' . Helper::str_get_filename_form_path($file), 
+                'name' => Helper::str_get_filename_form_path($file)
+            ]);
+        }
+        
+        return null;
+    }
 }

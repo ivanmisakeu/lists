@@ -35,7 +35,7 @@
             </a>
         </small>
         <small>
-            <em><?= _l("Leave blank if you don't want to change") ?></em>
+            <em><?= _l('Leave blank if you don\'t want to change') ?></em>
         </small>
         <div class="clearfix"></div>
     </div>

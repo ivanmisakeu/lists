@@ -297,6 +297,18 @@ class Helper {
                 mt_rand(0, 0xffff), mt_rand(0, 0xffff), mt_rand(0, 0xffff)
         );
     }
+    
+    /**
+     * Returns filename from given path
+     * 
+     * @param string $path
+     * @return string
+     */
+    public static function str_get_filename_form_path( string $path ){
+        
+        $tmp = explode('/',$path);
+        return $tmp[ count($tmp) - 1 ];
+    }
 
     /* ------- ** FILE WORK FUNCTIONS ** ------- */
 

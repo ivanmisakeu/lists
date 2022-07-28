@@ -73,5 +73,39 @@ class Lang {
         
         return self::$translation_array;
     }
+    
+    /**
+     * Get list of missing translations
+     * 
+     * @return array
+     */
+    public static function getMissingTranslations(){
+        
+        $missing = array();
+        
+        foreach( self::$translation_array as $key => $translation ){
+            
+            if( preg_match('/^#LANG#:/um', $translation) ){
+                
+                $missing[ $key ] = $translation;
+            }
+        }
+        
+        return $missing;
+    }
 
+    /**
+     * Search already available translations on server
+     */
+    public static function searchForTranslationFiles() {
+
+        $languages_found = array();
+
+        foreach ( Helper::scan_dir( TRANSLATIONS_DIR, [ 'php' ] ) as $file_name ) {
+
+            $languages_found[] = strtolower( str_replace( '.php', '', Helper::get_file_from_path( $file_name ) ) );
+        }
+
+        return $languages_found;
+    }
 }

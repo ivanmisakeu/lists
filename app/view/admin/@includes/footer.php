@@ -6,8 +6,8 @@
 <script>
     _app.lang.translations = {
         'Please fill all required fields': '<?= _l( 'Please fill all required fields' ) ?>',
-        'Admin': '<?= _l( 'Admin') ?>',
+        'Admin': '<?= _l( 'Admin' ) ?>',
     };
     
-    <?php if( Template::$HTML_TITLE ): ?>$('title').text('<?= Template::$HTML_TITLE . ' | ' . _l( 'Admin') ?>');<?php endif; ?>
+    <?php if( Template::$HTML_TITLE ): ?>$('title').text('<?= Template::$HTML_TITLE . ' | ' . _l( 'Admin' ) ?>');<?php endif; ?>
 </script>

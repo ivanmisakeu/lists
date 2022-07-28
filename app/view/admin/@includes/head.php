@@ -1,5 +1,5 @@
 
-<title><?= _l( 'Shopping list' ) . ' | ' . _l( 'Admin') ?></title>
+<title><?= _l( 'Shopping list' ) . ' | ' . _l( 'Admin' ) ?></title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1" />
 
 <link rel="apple-touch-icon" sizes="180x180" href="<?= APP_URL ?>/resources/img/favicon/apple-touch-icon.png<?= Helper::res_timestamp( 'img/favicon/apple-touch-icon.png' ); ?>">

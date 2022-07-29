@@ -28,6 +28,19 @@ class DbBackup {
             Log::flush( Log::TYPE_DB_BACKUP );
         }
         
+        // start HTML
+        if( isset($_GET['format_result']) ){
+            
+            echo '
+                <link rel="stylesheet" href="' . APP_URL . '/resources/css/bootstrap.min.css">
+                <link rel="stylesheet" href="' . APP_URL . '/resources/css/font-awesome.css">
+                <style>
+                    .main-content{ padding: 15px;
+                </style>
+
+                <div class="main-content">';
+        }
+        
         self::log( 'Backup script started' );
 
         self::getTables();
@@ -42,7 +55,7 @@ class DbBackup {
 
             $table_column_names = self::getTableColumnNames( $table_name );
             $table_count = self::getDataCount( $table_name );
-            
+
             self::generateSqlInsert( $table_name , $table_column_names , $table_count );
             
         }
@@ -52,6 +65,20 @@ class DbBackup {
         Settings::set( 'DB_BACKUP' , Core::now() );
                 
         self::log( 'Backup script finished' );
+        
+        // end HTML
+        if( isset($_GET['return_url']) && isset($_GET['format_result']) ){
+            
+            echo '
+                <br />
+                <a href="' . $_GET['return_url'] . '" class="btn btn-primary">
+                    <i class="fa fa-arrow-left" aria-hidden="true"></i> ' . _l('Go back') . '
+                </a>';
+        }
+        
+        if( isset($_GET['format_result']) ){
+            echo '</div>';
+        }
         
         exit();
     }
@@ -130,9 +157,16 @@ class DbBackup {
         
         $table_column_names = array();
         
-        $sql = "SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = N'" . $table_name . "'";
-        $result = App::$DB->query( $sql )->fetchAll();
+        $sql = "
+            SELECT 
+                COLUMN_NAME 
+            FROM INFORMATION_SCHEMA.COLUMNS 
+            WHERE 
+                TABLE_NAME = N'" . $table_name . "' 
+                AND TABLE_SCHEMA='" . DB_NAME . "'";
         
+        $result = App::$DB->query( $sql )->fetchAll();
+
         foreach( $result as $row ){
             $table_column_names[] = $row['COLUMN_NAME'];
         }

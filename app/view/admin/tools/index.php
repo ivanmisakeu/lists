@@ -7,7 +7,7 @@
 <div class="clearfix"></div>
 
 <div>
-    <a href="<?= APP_URL ?>/script/db-backup" class="btn btn-default" target="_blank">
+    <a href="<?= APP_URL ?>/script/db-backup?return_url=<?= ADMIN_URL ?>/tools&format_result" class="btn btn-default">
         <i class="fa fa-database color" aria-hidden="true"></i> <?= _l( 'Run database backup' ); ?>
     </a>
 
@@ -43,7 +43,7 @@
 <hr />
 
 <div>
-    <a href="<?= APP_URL ?>/script/db-update" class="btn btn-default" target="_blank">
+    <a href="<?= APP_URL ?>/script/db-update?return_url=<?= ADMIN_URL ?>/tools&format_result" class="btn btn-default">
         <i class="fa fa-database color" aria-hidden="true"></i> <?= _l( 'Run database migration' ); ?>
     </a>
     
@@ -70,7 +70,7 @@
 <hr />
 
 <div>
-    <a href="<?= APP_URL ?>/script/find-missing-translations" class="btn btn-default" target="_blank">
+    <a href="<?= APP_URL ?>/script/find-missing-translations?return_url=<?= ADMIN_URL ?>/tools&format_result" class="btn btn-default">
         <i class="fa fa-flag-o color" aria-hidden="true"></i> <?= _l( 'Find missing translations' ); ?>
     </a>
 
@@ -91,7 +91,7 @@
     
     <br />
     
-    <?= _l( 'Missing translations') . ': <strong>' . count( Lang::getMissingTranslations() ) . '</strong>' ?>
+    <?= _l( 'Missing translations' ) . ': <strong>' . count( Lang::getMissingTranslations() ) . '</strong>' ?>
     
 </div>
 

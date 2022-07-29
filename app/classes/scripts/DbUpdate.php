@@ -20,6 +20,19 @@ class DbUpdate {
             Log::flush( Log::TYPE_DB_MIGRATION );
         }
         
+        // start HTML
+        if( isset($_GET['format_result']) ){
+            
+            echo '
+                <link rel="stylesheet" href="' . APP_URL . '/resources/css/bootstrap.min.css">
+                <link rel="stylesheet" href="' . APP_URL . '/resources/css/font-awesome.css">
+                <style>
+                    .main-content{ padding: 15px;
+                </style>
+
+                <div class="main-content">';
+        }
+        
         self::log( 'Migration script started' );
 
         self::verifyMigrationTable();
@@ -37,6 +50,20 @@ class DbUpdate {
             $referer = isset( $_SERVER[ 'HTTP_REFERER' ] ) && strlen( $_SERVER[ 'HTTP_REFERER' ] ) ? $_SERVER[ 'HTTP_REFERER' ] : '/';
     
             Helper::redirect( $referer );
+        }
+        
+        // end HTML
+        if( isset($_GET['return_url']) && isset($_GET['format_result']) ){
+            
+            echo '
+                <br />
+                <a href="' . $_GET['return_url'] . '" class="btn btn-primary">
+                    <i class="fa fa-arrow-left" aria-hidden="true"></i> ' . _l('Go back') . '
+                </a>';
+        }
+        
+        if( isset($_GET['format_result']) ){
+            echo '</div>';
         }
         
         exit();

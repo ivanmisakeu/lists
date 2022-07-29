@@ -81,12 +81,10 @@
     ?>
     <?= _l( 'Languages in application' ) . ': <strong>' . strtoupper(join(', ' , $translations )) . '</strong>' ?>
     
-    <br /><br />
-    
-    <?= '<strong>' . strtoupper(APP_LANG) . ':</strong>'; ?>
-        
     <br />
     
+    <?= '<h4>' . strtoupper(APP_LANG) . ':</h4>'; ?>
+        
     <?= _l( 'Count of translations' ) . ': <strong>' . count( Lang::getLangArray() ) . '</strong>' ?>
     
     <br />

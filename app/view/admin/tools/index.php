@@ -97,8 +97,14 @@
 
 <hr />
 
-<div>
-    <a href="#" class="btn btn-default">
-        <i class="fa fa-file-code-o color" aria-hidden="true"></i> <?= _l( 'Application logs' ); ?>
-    </a>
-</div>
+<h4><?= _l( 'Application logs' ); ?></h4>
+
+<?php foreach( Log::TYPES_ALL as $key => $type ): ?>
+    
+    <div style="margin-top: 20px;">
+        <a href="<?= ADMIN_URL ?>/tools/log/<?= $type ?>" class="btn btn-default">
+            <i class="fa fa-file-code-o color" aria-hidden="true"></i> <?= $type ?>
+        </a>
+    </div>
+
+<?php endforeach; ?>

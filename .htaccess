@@ -1,6 +1,13 @@
 
 RewriteEngine on
+
 RewriteBase / 
+
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
+
+Redirect 302 /maintenance.php /
 RewriteRule ^(.*)$ /index.php?__path__=$1 [NC,L,QSA]
+
+#Redirect 302 /index.php /maintenance.php
+#RewriteRule ^(.*)$ /maintenance.php [NC,L,QSA]

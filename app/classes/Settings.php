@@ -75,6 +75,8 @@ class Settings extends Core {
         
         $files = Helper::scan_dir( APP_DIR . '/sql/backup', ['sql'] );
         
+        sort( $files );
+        
         if( count($files) ){
             
             $file = end( $files );

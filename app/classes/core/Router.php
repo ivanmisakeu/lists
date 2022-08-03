@@ -63,7 +63,12 @@ class Router {
 
         // basic tenant routing.. 
         if ( isset( self::$ROUTES[ 0 ] ) && !defined( 'ADMIN_DIR' ) ) {
-            App::$TEENANT = self::$ROUTES[ 0 ];
+            
+            $tenant = Tenant::getByName( self::$ROUTES[ 0 ] );
+            
+            if( $tenant && $tenant['active'] == Tenant::TENANT_ACTIVE ){
+                App::$TEENANT = self::$ROUTES[ 0 ];
+            }
         }
 
         // admin routes..

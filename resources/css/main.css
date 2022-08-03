@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+@import './framework.css';
 
 html,body{
     font-family: 'Roboto', sans-serif;
@@ -7,16 +8,6 @@ html,body{
     max-width: 600px;
     margin: 30px auto;
     padding: 0px 15px;
-}
-a.no-underline{
-    text-decoration: none;
-}
-.color{
-    color: #4a8af5;
-}
-label.required::after{
-    content: ' *';
-    color: #f00;
 }
 .modal{
     background: rgba(0,0,0,0.2);
@@ -52,12 +43,6 @@ label.required::after{
     top: 7px;
     border-radius: 5px;
 }
-input.error,
-select.error,
-textarea.error{
-    border: 1px solid #f00;
-    box-shadow: 0px 0px 3px 0px #f00;
-}
 .main-container input,
 .main-container button,
 .main-container select,
@@ -86,16 +71,6 @@ textarea.error{
     top: 0px;
     margin: 0px 3px 0px 15px;
 }
-#flash-message{
-    position: fixed;
-    top: 0px;
-    left: 0px;
-    right: 0px;
-    z-index: 999;
-    border-radius: 0px;
-    border-top: 0px;
-    text-align: center;
-}
 .btn-primary {
     color: #fff;
     background-color: #4a8af5;
@@ -110,14 +85,7 @@ h1 .fa-list-ul{
     position: relative;
     top: -3px;
 }
-.modal-content{
-    border-radius: 0px !important;
-}
-.copyright{
-    font-size: 11px;
-    color: #999;
-    margin-top: -10px;
-}
+
 .items-list-config-pointer{
     float: right;
     color: #999;
@@ -133,9 +101,6 @@ h1 .fa-list-ul{
     border: 1px solid #eee;
     max-width: 580px;
     padding: 15px;
-}
-.m-t-0{
-    margin-top: 0px;
 }
 .admin-header-wrapper{
     background:  #eee;
@@ -202,9 +167,6 @@ h1 .fa-list-ul{
 .admin-container .table-admin th{
     vertical-align: center;
 }
-.nowrap{
-   white-space: nowrap;
-}
 .admin-container form{
     max-width: 640px;
 }
@@ -217,9 +179,4 @@ h1 .fa-list-ul{
 .text-danger{
     color: #dc3545!important;
 }
-.m-t-sm{
-    margin-top:20px;
-}
-.big{
-    font-size: 1.2em;
-}
+

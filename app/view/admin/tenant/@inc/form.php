@@ -20,6 +20,10 @@
 <input type="hidden" name="redirect_url" value="<?= ADMIN_URL ?>/tenant" />
 <input type="hidden" name="id_tenant" value="<?= isset($tenant) ? $tenant['id'] : '' ?>" />
 
+<a href="<?= ADMIN_URL . '/tenant' ?>" class="btn btn-default m-r-xs">
+    <i class="fa fa-arrow-left" aria-hidden="true"></i> <?= _l('Back') ?>
+</a>
+
 <button class="btn btn-primary">
     
     <?php if( isset($tenant) ): ?>

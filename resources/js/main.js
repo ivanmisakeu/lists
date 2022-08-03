@@ -328,6 +328,22 @@ var _app = {
             return false;
         },
 
+        /**
+         * Remove item from list :: admin - items
+         * 
+         * @param {Int} id
+         * @param {String} name
+         * @returns {Boolean}
+         */
+        removeItem_admin : function( id , name ){
+            
+            var el = $('#removeItemModal');
+            $('input[name=id_item]', el).val( id );
+            $('.modal-header p' , el).html( '"' + name + '"' );
+            el.show();
+            
+            return false;
+        },
     },
       
     string : {

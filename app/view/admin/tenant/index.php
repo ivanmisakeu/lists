@@ -18,6 +18,7 @@
                 <th></th>
                 <th><?= _l('Address') ?></th>
                 <th><?= _l('List title') ?></th>
+                <th><?= _l('Items') ?></th>
                 <th><?= _l('Active') ?></th>
                 <th><?= _('Date created') ?></th>
                 <th></th>
@@ -37,6 +38,9 @@
                 <td>
                     <?= $tenant['title'] ? $tenant['title'] : '--' ?>
                 </td>
+                <td align="center" width="80">
+                    <?= count( Items::getAllByTenantId( $tenant['id'] ) ) ?>
+                </td>
                 <td width="60" align="center" class="<?= $tenant['active'] ? 'text-success' : '' ?>">
                     <i class="fa <?= $tenant['active'] ? 'fa-check' : 'fa-times' ?>" aria-hidden="true"></i>
                 </td>
@@ -45,7 +49,11 @@
                 </td>
                 <td class="nowrap">
                     
-                    <a class="btn btn-xs btn-primary" href="<?= ADMIN_URL . '/tenant/edit/' . $tenant['id'] ?>">
+                    <a class="btn btn-xs btn-warning m-r-sm" href="<?= ADMIN_URL , '/items/view/' . $tenant['name'] ?>">
+                        <i class="fa fa-list-ul" aria-hidden="true"></i> <?= _l('List') ?>
+                    </a>
+                    
+                    <a class="btn btn-xs btn-primary m-r-sm" href="<?= ADMIN_URL . '/tenant/edit/' . $tenant['id'] ?>">
                         <i class="fa fa-pencil" aria-hidden="true"></i> <?= _l('Edit') ?>
                     </a>
                     

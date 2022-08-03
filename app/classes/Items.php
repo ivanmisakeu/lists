@@ -23,13 +23,37 @@ class Items extends Core {
         }
         
         Template::assign( 'tenant', $tenant );
-        Template::assign( 'items', Items::getAllByTenantId( $tenant['id'] ) );
+        Template::assign( 'items', self::getAllByTenantId( $tenant['id'] ) );
 
         if( $tenant['title'] ){
             Template::setPageTitle( $tenant['title'] );
         }
         
         Template::render( 'item' );
+    }
+    
+    public static function actionIndex_admin() {
+
+        Helper::redirect( ADMIN_URL . '/tenant' );
+    }
+    
+    public static function actionView_admin() {
+
+        if( !isset(Router::$ROUTES[1]) ){
+            
+            Helper::redirect( ADMIN_URL . '/tenant' );
+        }
+        
+        $tenant = Tenant::getByName( Router::$ROUTES[2] );
+        if( !$tenant ){
+            
+            Helper::flash_set( Lang::l('Tenant does not exists') , Helper::FLASH_DANGER );
+            Helper::redirect( ADMIN_URL . '/tenant' );
+        }
+        
+        Template::assign( 'tenant', $tenant ); 
+        Template::assign( 'items', self::getAllByTenantId( $tenant['id'] ) );
+        Template::generate_admin( 'items/view' );
     }
     
     /* ------- ** DATABASE FUNCTIONS ** ------- */
@@ -142,6 +166,34 @@ class Items extends Core {
         }
         
         Helper::redirect_error_home();
+    }
+    
+    public static function removeItem_admin(){
+        
+        Helper::captcha_verify();
+
+        if( !isset($_POST['id_item']) || !strlen($_POST['id_item']) ){
+            Helper::redirect_error_home();
+        }
+        
+        $item = self::get( $_POST['id_item'] );
+        if( !$item || $item['deleted'] == self::ITEM_DELETED ){
+            
+            Helper::flash_set( Lang::l('Item not found') , Helper::FLASH_DANGER );
+            Helper::redirect_to_posted_url();
+        }
+        
+        $tenant = Tenant::get( $item['id_tenant'] );
+        
+        $update_data = array(
+            'deleted' => self::ITEM_DELETED,
+            'deleted_date' => Core::now()
+        );
+        
+        App::$DB->query('UPDATE ' . self::TABLE_NAME . ' SET', $update_data , 'WHERE id = ?', (int) $item['id'] );
+        
+        Helper::flash_set( Lang::l('Item has been deleted') );
+        Helper::redirect( $_POST['redirect_url'] . $tenant['name'] );
     }
 
 }

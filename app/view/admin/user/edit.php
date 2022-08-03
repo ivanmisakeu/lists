@@ -42,6 +42,10 @@
         
     <input type="hidden" name="redirect_url" value="<?= ADMIN_URL ?>/user" />
     
+    <a href="<?= ADMIN_URL . '/user' ?>" class="btn btn-default m-r-xs">
+        <i class="fa fa-arrow-left" aria-hidden="true"></i> <?= _l('Back') ?>
+    </a>
+    
     <button class="btn btn-primary">
         <i class="fa fa-floppy-o" aria-hidden="true"></i> <?= _l( 'Save' ) ?>
     </button>

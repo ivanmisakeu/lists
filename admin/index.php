@@ -8,7 +8,10 @@
     define( 'ADMIN_FOLDER_NAME' , basename(dirname(__FILE__)) );
     define( 'ADMIN_DIR' , __DIR__ );
 
-    session_start();
+    // turned on sessions
+    if(session_status() !== PHP_SESSION_ACTIVE){    
+        session_start();
+    }
     
     // getting backbone of the app
     require_once APP_DIR . '/app.php';

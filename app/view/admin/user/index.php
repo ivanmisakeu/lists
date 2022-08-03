@@ -38,9 +38,11 @@
                     <?= $user['created']->format(APP_HUMAN_DATE) ?>
                 </td>
                 <td  class="nowrap">
-                    <a class="btn btn-xs btn-primary" href="<?= ADMIN_URL . '/user/edit/' . $user['id'] ?>">
+                    
+                    <a class="btn btn-xs btn-primary m-r-sm" href="<?= ADMIN_URL . '/user/edit/' . $user['id'] ?>">
                         <i class="fa fa-pencil" aria-hidden="true"></i> <?= _l('Edit') ?>
                     </a>
+                    
                     <a onClick="
                         return _app.modals.removeUser_admin(<?= $user['id'] ?>,
                             '<?= $user['name'] ?>',
@@ -49,6 +51,7 @@
                         href="#">
                             <i class="fa fa-trash" aria-hidden="true"></i> <?= _l('Delete') ?>
                     </a>
+                    
                 </td>
             </tr>
             <?php endforeach; ?>

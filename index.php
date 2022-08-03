@@ -4,7 +4,10 @@
     define( 'WWW_DIR', __DIR__ );
     define( 'APP_DIR', WWW_DIR . '/app' );
 
-    session_start();
+    // turned on sessions
+    if(session_status() !== PHP_SESSION_ACTIVE){    
+        session_start();
+    }
 
     // getting backbone of the app
     require_once APP_DIR . '/app.php';

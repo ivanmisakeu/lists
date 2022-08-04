@@ -56,6 +56,51 @@ class Items extends Core {
         Template::generate_admin( 'items/view' );
     }
     
+    public static function actionAdd_admin(){
+        
+        if( !isset(Router::$ROUTES[2]) ){
+            
+            Helper::redirect( ADMIN_URL . '/tenant' );
+        }
+        
+        $tenant = Tenant::getByName( Router::$ROUTES[2] );
+        if( !$tenant ){
+            
+            Helper::flash_set( Lang::l('Tenant does not exists') , Helper::FLASH_DANGER );
+            Helper::redirect( ADMIN_URL . '/tenant' );
+        }
+        
+        Template::assign( 'tenant', $tenant ); 
+        Template::generate_admin( 'items/add' );
+    }
+    
+    public static function actionEdit_admin(){
+        
+        if( !isset(Router::$ROUTES[2]) ){
+            
+            Helper::redirect( ADMIN_URL . '/tenant' );
+        }
+        
+        $item = self::get( Router::$ROUTES[2] );
+        if( !$item || $item['deleted'] == self::ITEM_DELETED ){
+            
+            Helper::flash_set( Lang::l('Item does not exists') , Helper::FLASH_DANGER );
+            Helper::redirect( ADMIN_URL . '/tenant' );
+        }
+        
+        $tenant = Tenant::get( $item['id_tenant'] );
+        if( !$tenant || $tenant['active'] == Tenant::TENANT_DISABLED ){
+            
+            Helper::flash_set( Lang::l('Tenant does not exists') , Helper::FLASH_DANGER );
+            Helper::redirect( ADMIN_URL . '/tenant' );
+        }
+        
+        Template::assign( 'item', $item );
+        Template::assign( 'tenant', $tenant ); 
+        Template::generate_admin( 'items/edit' );
+        
+    }
+    
     /* ------- ** DATABASE FUNCTIONS ** ------- */
         
     /**
@@ -184,6 +229,9 @@ class Items extends Core {
         }
         
         $tenant = Tenant::get( $item['id_tenant'] );
+        if( !$tenant ){
+            Helper::redirect_error_home();
+        }
         
         $update_data = array(
             'deleted' => self::ITEM_DELETED,
@@ -195,5 +243,57 @@ class Items extends Core {
         Helper::flash_set( Lang::l('Item has been deleted') );
         Helper::redirect( $_POST['redirect_url'] . $tenant['name'] );
     }
+        
+    public static function editItem(){
+        
+        Helper::captcha_verify();
+        
+        if( !isset($_POST['id_item']) || !isset($_POST['id_tenant']) || !isset($_POST['name']) ){
+            
+            Helper::redirect_error_home();
+        }
+        
+        $item = self::get( $_POST['id_item'] );
+        if( !$item || $item['deleted'] == self::ITEM_DELETED ){
+            
+            Helper::flash_set( Lang::l('Item not found') , Helper::FLASH_DANGER );
+            Helper::redirect_to_posted_url();
+        }
+        
+        $tenant = Tenant::get( $item['id_tenant'] );
+        if( !$tenant ){
+            Helper::redirect_error_home();
+        }
+        
+        $update_data = array(
+            'name' => $_POST['name']
+        );
+        
+        App::$DB->query('UPDATE ' . self::TABLE_NAME . ' SET', $update_data , 'WHERE id = ?', (int) $item['id'] );
+        
+        Helper::flash_set( Lang::l('Item has been updated') );
+        Helper::redirect_to_posted_url();
+    }
 
+    public static function addItem(){
+  
+        Helper::captcha_verify();
+
+        if( !isset($_POST['id_tenant']) || !isset($_POST['name']) ){
+            
+            Helper::redirect_error_home();
+        }
+        
+        $tenant = Tenant::get( $_POST['id_tenant'] );
+        if( !$tenant ){
+            Helper::redirect_error_home();
+        }
+
+        self::add( $_POST['name'] , $tenant['id'] );
+
+        Helper::flash_set( Lang::l('Item has been added') );
+        Helper::redirect_to_posted_url();
+        
+    }
+    
 }

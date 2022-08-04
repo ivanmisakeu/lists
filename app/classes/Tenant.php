@@ -37,9 +37,10 @@ class Tenant extends Core {
         
         $tenant = self::get( (int) Router::$ROUTES[2] );
         
-        if( !$tenant ){
+        if( !$tenant || $tenant['acive'] == self::TENANT_DISABLED ){
             
-            Helper::redirect_error_home();
+            Helper::flash_set( Lang::l('Tenant does not exists') , Helper::FLASH_DANGER );
+            Helper::redirect( ADMIN_URL . '/tenant' );
         }
         
         Template::assign( 'tenant', $tenant );

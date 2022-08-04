@@ -1,5 +1,5 @@
 
-<a href="<?= ADMIN_URL . '/items/add/' . $tenant['id'] ?>" class="pull-right btn btn-primary btn-sm m-t-sm">
+<a href="<?= ADMIN_URL . '/items/add/' . $tenant['name'] ?>" class="pull-right btn btn-primary btn-sm m-t-sm">
     <i class="fa fa-plus" aria-hidden="true"></i> <?= _l('Add') ?>
 </a>
 
@@ -41,7 +41,7 @@
                 </td>
                 <td class="nowrap">
                     
-                    <a class="btn btn-xs btn-primary m-r-sm" href="<?= ADMIN_URL . '/item/edit/' . $item['id'] ?>">
+                    <a class="btn btn-xs btn-primary m-r-sm" href="<?= ADMIN_URL . '/items/edit/' . $item['id'] ?>">
                         <i class="fa fa-pencil" aria-hidden="true"></i> <?= _l('Edit') ?>
                     </a>
                     

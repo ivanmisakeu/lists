@@ -179,4 +179,7 @@ h1 .fa-list-ul{
 .text-danger{
     color: #dc3545!important;
 }
-
+.row-flex{
+        display: flex;
+    flex-wrap: wrap;
+}

@@ -16,7 +16,7 @@ class Admin{
     
     public static function actionIndex_admin(){
 
-        self::$HTML_CONTENT = 'OU YEAH!';
+        Template::generate_admin( 'dashboard/index' );
     }
     
     /* ------- ** SYSTEM FUNCTIONS ** ------- */

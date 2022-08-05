@@ -1,7 +1,7 @@
 
 <div class="admin-header-wrapper">
     <div class="pull-right">
-         <?= User::$CURRENT_USER['name'] ?> 
+        <i class="fa fa-user-o color" aria-hidden="true"></i> <?= User::$CURRENT_USER['name'] ?> 
         <a href="<?= ADMIN_URL . '/user/logout' ?>" title="<?= _l('Sign out') ?>">
             <i class="fa fa-sign-out" aria-hidden="true"></i>
         </a>

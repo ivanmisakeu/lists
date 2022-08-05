@@ -115,6 +115,25 @@ class Items extends Core {
     }
     
     /**
+     * Get all items from all lists 
+     * @note do not display this list on front! never! because little kitty will die..
+     * 
+     * @return array
+     */
+    public static function getAll(){
+        
+        $sql = '
+                SELECT 
+                    * 
+                FROM ' . self::TABLE_NAME . ' 
+                WHERE 
+                    deleted = ' . self::ITEM_NOT_DELETED . ' 
+                ORDER BY created ASC';
+
+        return APP::$DB->query( $sql )->fetchAll();
+    }
+    
+    /**
      * Get all items (not marked as deleted=1) for specified tenant
      * 
      * @param int $id_tenant

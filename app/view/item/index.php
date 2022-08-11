@@ -13,7 +13,7 @@
     <?= Helper::captcha_get(); ?>
 
     <div class="form-group">
-        <input type="text" name="name" class="form-control required" placeholder="<?= _l( 'Add new item' ) ?>" autocomplete="off" />
+        <input type="text" name="name" class="form-control required" placeholder="<?= _l( 'Add new item' ) ?>" autocomplete="off" autocapitalize="off" />
         <input type="hidden" name="id_tenant" value="<?= $tenant[ 'id' ] ?>" />
     </div>
     <button class="btn btn-primary">

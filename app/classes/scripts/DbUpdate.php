@@ -137,7 +137,18 @@ class DbUpdate {
 
                 $sql = file_get_contents( $sql_file );
 
-                App::$DB->query( $sql );
+                // explode sql script in separate queryies
+                $queries = explode( ';' , $sql );
+                
+                // remove last query item if empty
+                if( 0 == strlen( trim( $queries[ count($queries) - 1 ] ) ) ){
+                    unset( $queries[ count($queries) - 1 ] );
+                }
+                
+                // run each query separately..
+                foreach( $queries as $query ){
+                    App::$DB->query( $query );
+                }
 
                 Core::insert( [ 'name' => $file_name ], self::TABLE_NAME );
 

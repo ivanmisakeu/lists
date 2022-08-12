@@ -322,12 +322,18 @@ class User extends Core {
     
     /**
      * Check if user is logged, otherwise redirect him to login form
+     * 
+     * @param bool $admin_required 
      */
-    public static function checkLogged(){
+    public static function checkLogged( bool $admin_required = false ){
         
         self::$CURRENT_USER = self::getUserByToken( isset($_SESSION['token']) ? $_SESSION['token'] : '' );
         
         if( !self::$CURRENT_USER && Router::$PATH != 'user/auth'){
+            
+            Helper::redirect( ADMIN_URL . '/user/auth' );
+        }
+        else if( $admin_required && self::$CURRENT_USER['admin'] != self::USER_ADMIN ){
             
             Helper::redirect( ADMIN_URL . '/user/auth' );
         }

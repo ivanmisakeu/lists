@@ -7,6 +7,9 @@ if ( !defined( 'APP_VERSION' ) ) {
 class Router {
 
     /** @const string */
+    const DEFAULT_FRONT_CONTROLLER = 'tenant';
+    
+    /** @const string */
     const DEFAULT_ADMIN_CONTROLLER = 'admin';
     
     /** @var array */
@@ -75,7 +78,7 @@ class Router {
         if ( defined( 'ADMIN_DIR' ) ) {
 
             // check if user is signed in
-            User::checkLogged();
+            User::checkLogged( true );
             
             // initialize admin menu
             Admin::menuInit();
